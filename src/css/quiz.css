@@ -6,6 +6,9 @@
   min-height: 100vh;
   background: var(--background-page);
   color: var(--text-primary);
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 /* ==========================================================
@@ -120,15 +123,16 @@
    ========================================================== */
 
 .options {
-  display: grid;
+  display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .option {
   display: flex;
   align-items: center;
   gap: 18px;
-  width: 100%;
+  width: calc(50% - 8px);
   padding: 20px;
   border: 2px solid var(--border-color);
   border-radius: 18px;
@@ -227,4 +231,48 @@
   .question-footer .btn {
     width: 100%;
   }
+}
+
+/* ==========================================================
+   Quiz Overlay (full-window slide-in)
+   ========================================================== */
+.quiz-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: var(--z-modal, 500);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8vh);
+  transition: all 320ms var(--transition-normal);
+}
+
+.quiz-overlay.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quiz-overlay .quiz-container {
+  width: min(100% - 2rem, var(--quiz-width));
+  max-height: calc(100vh - 80px);
+  overflow: auto;
+  position: relative;
+}
+
+/* Tweak question card for overlay mode to use more vertical space */
+.quiz-overlay .question-card {
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.quiz-overlay #closeQuizBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 10;
 }

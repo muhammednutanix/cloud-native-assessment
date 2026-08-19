@@ -264,6 +264,10 @@
   color: #ffffff;
 }
 
+.report-btn {
+  background: var(--color-secondary);
+}
+
 .btn-primary:hover {
   transform: translateY(-2px);
   background: var(--color-primary-dark);

@@ -11,6 +11,8 @@ import { state, saveAnswer, nextQuestion, previousQuestion } from "./state.js";
 import { createReportUrl } from "./encoder.js";
 
 let app;
+// track whether overlay should be visible across renders
+let overlayVisible = false;
 
 /* ============================================================
  * Initialize UI
@@ -58,14 +60,20 @@ export function renderQuestion() {
             Cloud native has become the standard, but operating it shouldn't mean managing chaos. 
           </p>
           <p><small>Take this 1-minute benchmark assessment to evaluate your container operational readiness and pinpoint friction across VMs, Kubernetes, and enterprise data services.</small></p>
-
+          <div class="cta-buttons mt-4">
+            <button class="btn btn-primary" id="startAssessmentBtn">Start Assessment</button>
+          </div>
         </div>
 
       </section>
 
-      <section class="quiz-section">
+
+      <!-- Quiz overlay (hidden until user clicks Start Assessment) -->
+      <div id="quizOverlay" class="quiz-overlay">
 
         <div class="quiz-container">
+
+          <button id="closeQuizBtn" class="btn btn-secondary" style="position:absolute;right:28px;top:28px;border-radius:12px;">Close</button>
 
           ${renderProgress()}
 
@@ -125,10 +133,10 @@ export function renderQuestion() {
               </button>
 
               <button
-                  class="btn btn-primary"
+                  class="btn ${state.currentQuestion === QUESTIONS.length - 1 ? "report-btn" : "btn-primary"}"
                   id="nextButton"
                   disabled>
-                  Continue →
+                  ${state.currentQuestion === QUESTIONS.length - 1 ? "See Report" : "Continue →"}
               </button>
 
             </div>
@@ -137,12 +145,20 @@ export function renderQuestion() {
 
         </div>
 
-      </section>
+      </div>
 
     </main>
   `;
 
   bindEvents(question);
+
+  // restore overlay visibility after re-render (preserve open state)
+  const overlayEl = document.getElementById("quizOverlay");
+  if (overlayVisible && overlayEl) {
+    overlayEl.classList.add("show");
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+  }
 }
 
 /* ============================================================
@@ -226,5 +242,29 @@ function bindEvents(question) {
     selectedOption = question.options.find(
       (option) => option.id === savedAnswer.optionId,
     );
+  }
+
+  // Overlay controls: start and close
+  const overlay = document.getElementById("quizOverlay");
+  const startBtn = document.getElementById("startAssessmentBtn");
+  const closeBtn = document.getElementById("closeQuizBtn");
+
+  if (startBtn && overlay) {
+    startBtn.addEventListener("click", () => {
+      overlayVisible = true;
+      overlay.classList.add("show");
+      // Prevent background scrolling while overlay is open
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    });
+  }
+
+  if (closeBtn && overlay) {
+    closeBtn.addEventListener("click", () => {
+      overlayVisible = false;
+      overlay.classList.remove("show");
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    });
   }
 }
