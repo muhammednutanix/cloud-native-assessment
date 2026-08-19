@@ -1,7 +1,7 @@
-console.log("report.js module loaded");
 import "../css/variables.css";
 import "../css/main.css";
 import "../css/report.css";
+import html2pdf from "html2pdf.js";
 /**
  * ============================================================
  * Cloud Native Readiness Assessment
@@ -242,3 +242,31 @@ function renderError(message) {
     </main>
   `;
 }
+
+function downloadPdf() {
+  const element = document.querySelector(".report-layout");
+
+  const options = {
+    margin: 0.5,
+    filename: "Cloud-Native-Readiness-Report.pdf",
+    image: {
+      type: "jpeg",
+      quality: 1,
+    },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+    },
+    jsPDF: {
+      unit: "in",
+      format: "a4",
+      orientation: "portrait",
+    },
+  };
+
+  html2pdf().set(options).from(element).save();
+}
+
+document
+  .getElementById("downloadReport")
+  ?.addEventListener("click", downloadPdf);

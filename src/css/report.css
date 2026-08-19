@@ -337,3 +337,6 @@
     width: 100%;
   }
 }
+.pdf-hide {
+  display: none !important;
+}
