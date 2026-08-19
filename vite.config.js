@@ -1,24 +1,17 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
 
 export default defineConfig({
   base: "./",
 
   build: {
-    assetsDir: "",
+    outDir: "dist",
+    emptyOutDir: true,
 
     rollupOptions: {
-      output: {
-        entryFileNames: "assessment.js",
-
-        chunkFileNames: "assessment.js",
-
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith(".css")) {
-            return "assessment.css";
-          }
-
-          return "[name][extname]";
-        },
+      input: {
+        index: resolve(__dirname, "index.html"),
+        report: resolve(__dirname, "report.html"),
       },
     },
   },

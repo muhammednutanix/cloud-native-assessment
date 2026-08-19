@@ -20,6 +20,8 @@ let app;
 export function initUI() {
   app = document.getElementById("app");
 
+  console.log("App element:", app);
+
   renderQuestion();
 }
 
@@ -45,7 +47,7 @@ export function renderQuestion() {
         <div class="container">
 
           <p class="eyebrow">
-            INTERACTIVE READINESS ASSESSMENT
+            Operational Readiness Assessment
           </p>
 
           <h1>
@@ -53,9 +55,9 @@ export function renderQuestion() {
           </h1>
 
           <p class="hero-copy">
-            Evaluate your operational readiness across infrastructure,
-            Kubernetes and enterprise data services.
+            Cloud native has become the standard, but operating it shouldn't mean managing chaos. 
           </p>
+          <p><small>Take this 1-minute benchmark assessment to evaluate your container operational readiness and pinpoint friction across VMs, Kubernetes, and enterprise data services.</small></p>
 
         </div>
 

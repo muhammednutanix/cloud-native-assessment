@@ -16,7 +16,7 @@ import { RESOURCES } from "../data/resources.js";
 
 export function calculateScore(answers) {
   return answers.reduce((total, answer) => {
-    return total + answer.score;
+    return total + answer.option.score;
   }, 0);
 }
 

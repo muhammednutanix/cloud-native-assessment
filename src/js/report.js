@@ -1,3 +1,5 @@
+console.log("report.js module loaded");
+import "../css/variables.css";
 import "../css/main.css";
 import "../css/report.css";
 /**
@@ -50,13 +52,13 @@ export function initReport() {
  */
 
 function buildReport(answerIds) {
-  const answers = QUESTIONS.map((question, index) => {
-    return (
-      question.options.find((option) => option.id === answerIds[index]) || null
-    );
-  });
+  const answers = QUESTIONS.map((question, index) => ({
+    question,
+    option:
+      question.options.find((option) => option.id === answerIds[index]) || null,
+  }));
 
-  if (answers.includes(null)) {
+  if (answers.some((a) => !a.option)) {
     renderError("Assessment data is invalid.");
     return;
   }
@@ -79,89 +81,139 @@ function buildReport(answerIds) {
  */
 
 function renderReport(report) {
-  const app = document.getElementById("app");
+  console.log(report);
+  console.log(report.level);
+  console.log(report.score);
 
-  app.innerHTML = `
+  document.getElementById("riskLevel").textContent = report.level.title;
 
-<section class="report-page">
+  document.getElementById("scoreSummary").textContent = `${report.score} / 20`;
 
-    <div class="container">
+  document.getElementById("riskSummary").textContent = report.level.summary;
 
-        <h1>
-            ${report.level.title}
-        </h1>
+  document.getElementById("riskUrgency").textContent = report.level.subtitle;
 
-        <p>
-            ${report.level.subtitle}
-        </p>
+  renderJourney(report);
+  renderBreakdown(report);
+  renderActions(report);
+  renderResources(report);
+}
 
-      <div class="score-card">
+function renderJourney(report) {
+  document
+    .querySelectorAll(".level-card")
+    .forEach((card) => card.classList.remove("active"));
 
-    <span>Overall Score</span>
+  const active =
+    document.querySelectorAll(".level-card")[
+      Number(report.level.subtitle.replace("Level ", "")) - 1
+    ];
 
-    <strong>
-        ${report.score}
-        /
-        ${QUESTIONS.length * 4}
-    </strong>
+  if (active) {
+    active.classList.add("active");
+  }
+}
 
-</div>
-        
+function renderBreakdown(report) {
+  const container = document.getElementById("assessmentBreakdown");
+  console.log(report.answers);
+  container.innerHTML = report.answers
+    .map(
+      (answer) => `
 
-        <p>
-            ${report.level.summary}
-        </p>
+        <div class="report-card">
+          <h3>${answer.question.title}</h3>
+            <p>
+                <strong>Your Answer</strong><br>
+                ${answer.option.label}
+            </p>
+        </div>
 
-        <section class="recommendations">
+    `,
+    )
+    .join("");
+}
+
+function renderActions(report) {
+  const container = document.getElementById("nextActions");
+
+  container.innerHTML = report.level.recommendations
+    .map(
+      (item) => `  <div class="report-card">
+                <h3>Recommendation</h3>
+                <p>${item}</p>
+            </div>  `,
+    )
+    .join("");
+}
+
+function renderResources(report) {
+  const container = document.getElementById("topRisks");
+
+  if (!report.resources) {
+    container.innerHTML = "";
+
+    return;
+  }
+
+  container.innerHTML = `
+
+        <div class="report-card report-highlight">
 
             <h3>
-                Recommendations
+                ${report.resources.nextStep.title}
             </h3>
 
-            <ul>
+            <p>
+                ${report.resources.nextStep.description}
+            </p>
 
-                ${report.level.recommendations
-                  .map((item) => `<li>${item}</li>`)
-                  .join("")}
+        </div>
 
-            </ul>
-
-        </section>
-
-        <section class="resources">
+        <div class="report-card">
 
             <h3>
-                Recommended Resources
+                ${report.resources.solution.title}
             </h3>
 
-            ${report.resources.resources
-              .map(
-                (resource) => `
+            <p>
+                ${report.resources.solution.description}
+            </p>
 
-                <article class="resource">
+        </div>
 
-                    <span>${resource.type}</span>
+        ${report.resources.resources
+          .map(
+            (resource) => `
 
-                    <h4>${resource.title}</h4>
+            <div class="report-card">
 
-                    <a href="${resource.url}" target="_blank">
+                <span class="resource-type">
+                    ${resource.type}
+                </span>
 
-                        Learn More →
+                <h3>
+                    ${resource.title}
+                </h3>
 
-                    </a>
+                <a
+                    href="${resource.url}"
+                    target="_blank">
 
-                </article>
+                    Learn More →
 
-            `,
-              )
-              .join("")}
+                </a>
 
-        </section>
+            </div>
 
-        <section class="cta">
+        `,
+          )
+          .join("")}
+
+        <div class="report-card report-cta">
+
             <h3>
                 ${report.resources.cta.title}
-
             </h3>
 
             <button class="btn btn-primary">
@@ -170,38 +222,23 @@ function renderReport(report) {
 
             </button>
 
-        </section>
-    </div>
+        </div>
 
-</section>
-
-`;
+    `;
 }
-
 /* ============================================================
  * Error
  * ============================================================
  */
 
 function renderError(message) {
-  document.getElementById("app").innerHTML = `
-
-<div class="container">
-
-    <h2>
-
-        Unable to Load Report
-
-    </h2>
-
-    <p>
-
-        ${message}
-
-    </p>
-
-</div>
-
-`;
+  console.trace("renderError called");
+  document.body.innerHTML = `
+    <main class="report-layout">
+      <section class="report-hero">
+        <h1>Unable to Load Report</h1>
+        <p>${message}</p>
+      </section>
+    </main>
+  `;
 }
-document.addEventListener("DOMContentLoaded", initReport);

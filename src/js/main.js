@@ -5,27 +5,28 @@
  * ============================================================
  */
 
+import "../css/variables.css";
 import "../css/main.css";
 import "../css/quiz.css";
+import "../css/report.css";
 
 import { QUESTIONS } from "../data/questions";
 import { LEVELS } from "../data/levels";
 import { RESOURCES } from "../data/resources";
 
 import { initUI } from "./ui";
+import { initReport } from "./report";
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.group("🚀 Cloud Native Readiness Assessment");
+  const page = window.location.pathname.split("/").pop() || "index.html";
 
-  console.log("Questions:", QUESTIONS.length);
-  console.log("Levels:", LEVELS.length);
-  console.log("Resources:", Object.keys(RESOURCES).length);
+  console.log("Current page:", page);
 
-  console.groupEnd();
-
-  initUI({
-    questions: QUESTIONS,
-    levels: LEVELS,
-    resources: RESOURCES,
-  });
+  if (page === "report.html") {
+    console.log("Initializing REPORT");
+    initReport();
+  } else {
+    console.log("Initializing QUIZ");
+    initUI();
+  }
 });
