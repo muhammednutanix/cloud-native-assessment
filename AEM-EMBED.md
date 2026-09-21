@@ -28,10 +28,7 @@ Copy the contents of [aem-assessment-body.html](aem-assessment-body.html)
 directly into the AEM page body:
 
 ```html
-<link
-  rel="stylesheet"
-  href="/content/dam/cloud-native-readiness/main.css"
-/>
+<link rel="stylesheet" href="/content/dam/cloud-native-readiness/main.css" />
 <div data-cna-assessment></div>
 <script
   type="module"
@@ -48,10 +45,7 @@ copyable body snippet inside the AEM page body:
 Copy the contents of [aem-report-body.html](aem-report-body.html):
 
 ```html
-<link
-  rel="stylesheet"
-  href="/content/dam/cloud-native-readiness/main.css"
-/>
+<link rel="stylesheet" href="/content/dam/cloud-native-readiness/main.css" />
 <div data-cna-report></div>
 <script
   type="module"
