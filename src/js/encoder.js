@@ -101,6 +101,7 @@ export function decodeResult(result) {
  */
 export function createReportUrl(answers) {
   const result = encodeResult(answers);
+  const assessmentPath = window.location.pathname.replace(/\/+$/, "");
 
-  return `report.html?result=${encodeURIComponent(result)}`;
+  return `${assessmentPath}/report/?result=${encodeURIComponent(result)}`;
 }

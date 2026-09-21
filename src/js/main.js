@@ -18,15 +18,9 @@ import { initUI } from "./ui";
 import { initReport } from "./report";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const page = window.location.pathname.split("/").pop() || "index.html";
+  const reportMount = document.querySelector("[data-cna-report]");
+  const assessmentMount = document.querySelector("[data-cna-assessment], #app");
 
-  console.log("Current page:", page);
-
-  if (page === "report.html") {
-    console.log("Initializing REPORT");
-    initReport();
-  } else {
-    console.log("Initializing QUIZ");
-    initUI();
-  }
+  if (reportMount) initReport(reportMount);
+  else if (assessmentMount) initUI(assessmentMount);
 });

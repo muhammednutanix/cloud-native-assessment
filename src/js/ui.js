@@ -19,10 +19,12 @@ let overlayVisible = false;
  * ============================================================
  */
 
-export function initUI() {
-  app = document.getElementById("app");
+export function initUI(
+  mount = document.querySelector("[data-cna-assessment], #app"),
+) {
+  app = mount;
 
-  console.log("App element:", app);
+  if (!app) return;
 
   renderQuestion();
 }
@@ -153,7 +155,7 @@ export function renderQuestion() {
   bindEvents(question);
 
   // restore overlay visibility after re-render (preserve open state)
-  const overlayEl = document.getElementById("quizOverlay");
+  const overlayEl = app.querySelector("#quizOverlay");
   if (overlayVisible && overlayEl) {
     overlayEl.classList.add("show");
     document.documentElement.style.overflow = "hidden";
@@ -198,13 +200,13 @@ function bindEvents(question) {
 
   let selectedOption = null;
 
-  const options = document.querySelectorAll(".option");
+  const options = app.querySelectorAll(".option");
 
-  const nextBtn = document.getElementById("nextButton");
+  const nextBtn = app.querySelector("#nextButton");
   if (savedAnswer) {
     nextBtn.disabled = false;
   }
-  const prevBtn = document.getElementById("previousButton");
+  const prevBtn = app.querySelector("#previousButton");
 
   options.forEach((button, index) => {
     button.addEventListener("click", () => {
@@ -245,9 +247,9 @@ function bindEvents(question) {
   }
 
   // Overlay controls: start and close
-  const overlay = document.getElementById("quizOverlay");
-  const startBtn = document.getElementById("startAssessmentBtn");
-  const closeBtn = document.getElementById("closeQuizBtn");
+  const overlay = app.querySelector("#quizOverlay");
+  const startBtn = app.querySelector("#startAssessmentBtn");
+  const closeBtn = app.querySelector("#closeQuizBtn");
 
   if (startBtn && overlay) {
     startBtn.addEventListener("click", () => {

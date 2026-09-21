@@ -9,7 +9,7 @@ export const META = {
 
   maxScore: 20,
 
-  reportPage: "report.html",
+  reportPage: "report/",
 
   analyticsEnabled: true,
 };

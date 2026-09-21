@@ -20,8 +20,18 @@ import { decodeResult } from "./encoder.js";
  * ============================================================
  */
 
-export function initReport() {
-  console.log("Report JS Loaded");
+export function initReport(
+  mount = document.querySelector("[data-cna-report]"),
+) {
+  if (!mount) return;
+
+  mount.innerHTML = reportTemplate();
+
+  const assessmentHome = mount.querySelector("[data-cna-assessment-home]");
+  if (assessmentHome) {
+    assessmentHome.href =
+      window.location.pathname.replace(/\/report\/?$/, "") || "/";
+  }
 
   const params = new URLSearchParams(window.location.search);
 
@@ -43,7 +53,48 @@ export function initReport() {
 
   const report = buildReport(decoded.answers);
 
-  renderReport(report);
+  renderReport(report, mount);
+}
+
+function reportTemplate() {
+  return `
+    <main class="report-layout">
+      <section class="report-hero">
+        <span class="report-eyebrow"> CLOUD NATIVE READINESS REPORT </span>
+        <h1 id="riskLevel">Cloud Native Operator</h1>
+        <div class="score-wrapper">
+          <div class="score-circle"><span id="scoreSummary">14 / 20</span></div>
+          <div class="score-details">
+            <span class="score-label"> Overall Readiness </span>
+            <div id="riskUrgency" class="urgency-badge"></div>
+          </div>
+        </div>
+        <p id="riskSummary" class="hero-summary"></p>
+      </section>
+      <section class="report-section">
+        <h2>Assessment Summary</h2>
+        <div id="assessmentBreakdown" class="opportunity-grid"></div>
+      </section>
+      <section class="report-section">
+        <h2>Recommended Next Steps</h2>
+        <div id="nextActions" class="action-grid"></div>
+      </section>
+      <section class="report-section">
+        <h2>Recommended Resources</h2>
+        <div id="topRisks" class="resource-grid"></div>
+      </section>
+      <section class="report-cta">
+        <div class="cta-card">
+          <h2>Ready to accelerate your cloud native journey?</h2>
+          <p>Explore the recommended resources or speak with a Nutanix expert to build your roadmap.</p>
+          <div class="cta-buttons">
+            <button id="downloadReport" class="btn btn-primary">Download PDF</button>
+            <a href="/" data-cna-assessment-home class="btn btn-secondary">Retake Assessment</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  `;
 }
 
 /* ============================================================
@@ -80,27 +131,23 @@ function buildReport(answerIds) {
  * ============================================================
  */
 
-function renderReport(report) {
-  console.log(report);
-  console.log(report.level);
-  console.log(report.score);
+function renderReport(report, mount) {
+  mount.querySelector("#riskLevel").textContent = report.level.title;
 
-  document.getElementById("riskLevel").textContent = report.level.title;
+  mount.querySelector("#scoreSummary").textContent = `${report.score} / 20`;
 
-  document.getElementById("scoreSummary").textContent = `${report.score} / 20`;
+  mount.querySelector("#riskSummary").textContent = report.level.summary;
 
-  document.getElementById("riskSummary").textContent = report.level.summary;
+  mount.querySelector("#riskUrgency").textContent = report.level.subtitle;
 
-  document.getElementById("riskUrgency").textContent = report.level.subtitle;
-
-  renderJourney(report);
-  renderBreakdown(report);
-  renderActions(report);
-  renderResources(report);
+  renderJourney(report, mount);
+  renderBreakdown(report, mount);
+  renderActions(report, mount);
+  renderResources(report, mount);
 }
 
-function renderJourney(report) {
-  document
+function renderJourney(report, mount) {
+  mount
     .querySelectorAll(".level-card")
     .forEach((card) => card.classList.remove("active"));
 
@@ -114,9 +161,8 @@ function renderJourney(report) {
   }
 }
 
-function renderBreakdown(report) {
-  const container = document.getElementById("assessmentBreakdown");
-  console.log(report.answers);
+function renderBreakdown(report, mount) {
+  const container = mount.querySelector("#assessmentBreakdown");
   container.innerHTML = report.answers
     .map(
       (answer) => `
@@ -134,8 +180,8 @@ function renderBreakdown(report) {
     .join("");
 }
 
-function renderActions(report) {
-  const container = document.getElementById("nextActions");
+function renderActions(report, mount) {
+  const container = mount.querySelector("#nextActions");
 
   container.innerHTML = report.level.recommendations
     .map(
@@ -147,8 +193,8 @@ function renderActions(report) {
     .join("");
 }
 
-function renderResources(report) {
-  const container = document.getElementById("topRisks");
+function renderResources(report, mount) {
+  const container = mount.querySelector("#topRisks");
 
   if (!report.resources) {
     container.innerHTML = "";
@@ -231,9 +277,12 @@ function renderResources(report) {
  * ============================================================
  */
 
-function renderError(message) {
-  console.trace("renderError called");
-  document.body.innerHTML = `
+function renderError(message, mount) {
+  const container = mount || document.querySelector("[data-cna-report]");
+
+  if (!container) return;
+
+  container.innerHTML = `
     <main class="report-layout">
       <section class="report-hero">
         <h1>Unable to Load Report</h1>
@@ -267,6 +316,6 @@ function downloadPdf() {
   html2pdf().set(options).from(element).save();
 }
 
-document
-  .getElementById("downloadReport")
-  ?.addEventListener("click", downloadPdf);
+document.addEventListener("click", (event) => {
+  if (event.target.closest("#downloadReport")) downloadPdf();
+});

@@ -2,7 +2,8 @@
    Report Layout
 ========================================================== */
 
-.report-page {
+.report-page,
+[data-cna-report] {
   background: var(--background-page);
   min-height: 100vh;
   color: var(--text-primary);
@@ -304,7 +305,8 @@
 }
 
 @media (max-width: 640px) {
-  .report-page {
+  .report-page,
+  [data-cna-report] {
     padding: 40px 16px;
   }
 
