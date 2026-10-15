@@ -1,0 +1,198 @@
+001: Nutanix CN Operational Readiness Assessment
+002: MOCK-UP PROTOTYPE
+003: FULL PLAN
+004: QUIZ INTRODUCTION
+005: Eyebrow - Operational Readiness Assessment
+006: Headline: How Ready Are You to Scale Cloud Native Operations?
+007: Sub-headline: Cloud native has become the standard, but operating it shouldn't mean managing chaos.
+008: Body: Take this one-minute benchmark assessment to evaluate your container operational readiness and pinpoint friction across VMs, Kubernetes, and enterprise data services.
+009: Value Pillars
+010: One-Minute Benchmark: Five quick questions evaluating operational consistency and maturity.
+011: Score-Based Routing: Evaluates your overall operational maturity to deliver targeted insights.
+012: Tailored Roadmap: Receive immediate benchmark analysis with specific next steps and assets.
+013: Call to Action (CTA): Start 1-Minute Assessment →
+014: QUIZ QUESTIONS
+015: Q1: Platform Modernization
+016: What does your infrastructure look like today?
+017: Primarily VMs
+018: Mix of VMs & Containers
+019: Primarily K8s
+020: Unified Platform
+021: Q2: Fleet Automation
+022: How are multiple clusters managed across your enterprise?
+023: Mostly manual
+024: Partially automated
+025: Standard processes
+026: Fully automated
+027: Q3: Operational Consistency
+028: How consistent are operations across datacenter, public clouds, and the edge?
+029: Mostly manual
+030: Different by environment
+031: Mostly standardized
+032: Consistent everywhere
+033: Q4: Platform Standardization
+034: How consistent are operational standards across Kubernetes, infrastructure, and data management?
+035: Ad hoc
+036: Fragmented across vendors
+037: Mostly centralized
+038: Unified Platform
+039: Q5: Business Agility and Scale
+040: How fast can your organization roll out major new initiatives?
+041: Slow: New initiatives require major manual architecture and custom tooling
+042: Moderate: Semi-automated with some bottlenecks
+043: Fast: Fully automated templates and pipelines
+044: Immediate: Self-service capabilities enabled across the organization
+045: Navigation: ← Back | Continue →
+046: QUIZ LEAD CAPTURE FORM
+047: Eyebrow: Your Assessment is Complete
+048: [Different Levels Dependent on Score]
+049: Level 1: Foundation Builder
+050: You have established the core foundation for your cloud native journey, but operational fragmentation and manual processes result in significant friction. Managing virtual machines, early Kubernetes clusters, and data services in separate silos can bog down your team with repetitive administrative tasks, slowing overall delivery speed.
+051: Level 2: Platform Operator
+052: You are actively scaling cloud native workloads, but managing isolated clusters and varied operating models across different teams or locations is creating operational overhead. Bridging these environments with standardized automation will unlock true multicluster agility without increasing administrative overhead.
+053: Level 3:  Cloud Native Operator
+054: Your organization operates with high consistency, and is now ready to transition from automation to policy-driven scaling and security. By integrating governance directly into your workflows, you can expand rapidly while still adhering to your enterprise standards for compliance and protection.
+055: Level 4:  Enterprise Ready
+056: You operate a unified enterprise platform with fleet-level automation and consistency across environments. Your operational foundation is already optimized, so now your goal is to ease scalability across distributed environments, by leveraging intelligent operations to refine complex workflows, increase lifecycle automation, and continuously optimize processes.
+057: Where should we send your complete profile?
+058: Enter your details below to instantly reveal your tailored architectural next steps and receive the downloadable PDF report.
+059: Form Fields: [TBD on MOPs baseline fields]
+060: First Name *
+061: Last Name *
+062: Business Email *
+063: Job Role / Persona *
+064: Company Name
+065: Consent Text: By submitting, you agree to Nutanix processing your data to deliver your assessment report and relevant communications.
+066: Call to Action (CTA): View My Full Readiness Profile →
+067: QUIZ RESULTS PAGE
+068: Mock-up Results Page Prototype
+069: Will land on one of four static pages based on quiz answers total
+070: Current Readiness Level + Diagnosis Short Paragraph
+071: Top Challenges
+072: Recommended Next Actions
+073: Recommended Resources
+074: [Different Levels Dependent on Score]
+075: Level 1: Foundation Builder
+076: You have established the core foundation for your cloud native journey, but operational fragmentation and manual processes results in significant friction. Managing virtual machines, early Kubernetes clusters, and data services in separate silos bogs down your team with repetitive administrative tasks, slowing overall delivery speed.
+077: How to Level Up
+078: Minimize operational fragmentation by unifying VM and container management under a single, cohesive operating model
+079: Replace manual, step-by-step provisioning with standardized, automated infrastructure templates
+080: Centralize core governance and storage policies to maintain control and performance across all deployments
+081: Ready to accelerate your journey?
+082: Get a personalized roadmap session with a Nutanix cloud native architect.
+083: [Speak with an Expert]
+084: Recommended Content Assets
+085: E-Book
+086: From Chaos to Control: A Cloud Native Strategy Guide for IT Leaders.
+087: Read eBook ->
+088: Blog
+089: The High Cost of Free: Why DIY Kubernetes Breaks Down in Production
+090: Read Blog ->
+091: Video
+092: Unified VM & Kubernetes Operations with Nutanix
+093: Watch Demo ->
+094: Mapped Solutions
+095: Product - Nutanix Kubernetes Platform - Explore a complete and open enterprise Kubernetes platform that can run anywhere
+096: Product - Nutanix Data Services - Extend data services to containerized apps and simplify data management
+097: Solution - Nutanix Cloud Native Solution - Run your workloads on a full-stack, enterprise platform for containers and VMs
+098: Level 2: Platform Operator
+099: You are actively scaling cloud native workloads, but managing isolated clusters and varied operating models across different teams or locations is creating operational overhead. Bridging these environments with standardized automation will unlock true multi-cluster agility without increasing administrative overhead.
+100: How to Level Up
+101: Transition from partial automation to declarative, fleet-wide cluster management across your enterprise
+102: Implement unified data management policies, so stateful Kubernetes applications share the same enterprise resiliency as your VMs
+103: Standardize deployment blueprints to reduce environment-specific bottlenecks when rolling out new applications.
+104: Ready to accelerate your journey?
+105: Get a personalized roadmap session with a Nutanix cloud native architect.
+106: [Speak with an Expert]
+107: Recommended Content Assets
+108: E-Book
+109: What It Takes to Build a Production‑Ready Kubernetes Platform
+110: Read eBook ->
+111: Blog
+112: The Modern App Paradox: Why Your App Containers Are So Heavy
+113: Read Blog ->
+114: Video
+115: Consistent Hybrid Multicloud Kubernetes experience for Platform Engineers and Developers
+116: Watch Video ->
+117: Mapped Solutions
+118: Product - Nutanix Kubernetes Platform - Explore a complete and open enterprise Kubernetes platform that can run anywhere
+119: Product - Nutanix Data Services - Extend data services to containerized apps and simplify data management
+120: Solution - Nutanix Cloud Native Solution - Run your workloads on a full-stack, enterprise platform for containers and VMs
+121: Level 3:  Cloud Native Operator
+122: Your cloud native operations are mature, featuring robust automation and standardized environments across your enterprise. To reach complete operational alignment, your primary focus is removing remaining friction between developer workflows, complex data lifecycle management, and cross-cluster governance.
+123: How to Level Up
+124: Streamline day-2 operations by implementing automated, zero-downtime upgrades across your entire Kubernetes cluster fleet
+125: Extend policy-driven data protection, continuous snapshots, and instant disaster recovery to all modern application workloads
+126: Unify security policies and infrastructure governance to enforce compliance consistently across every environment
+127: Ready to accelerate your journey?
+128: Get a personalized roadmap session with a Nutanix cloud native architect.
+129: [Speak with an Expert]
+130: Recommended Content Assets
+131: E-Book
+132: Cloud Native Playbook for Platform Engineers
+133: Read eBook ->
+134: Blog
+135: Operationalizing Kubernetes: Why the Future Belongs to Full-Stack Platforms
+136: Read Blog ->
+137: Video
+138: Kubernetes Lifecycle Management with NKP and Cluster API
+139: Watch Video ->
+140: Mapped Solutions
+141: Product - Nutanix Kubernetes Platform - Explore a complete and open enterprise Kubernetes platform that can run anywhere
+142: Product - Nutanix Data Services - Extend data services to containerized apps and simplify data management
+143: Solution - Nutanix Cloud Native Solution - Run your workloads on a full-stack, enterprise platform for containers and VMs
+144: Level 4:  Enterprise Ready
+145: You operate a unified enterprise platform with fleet-level automation and consistency across environments. Your operational foundation is already optimized, so now your goal is to ease scalability across distributed environments, by leveraging intelligent operations to refine complex workflows, increase lifecycle automation, and continuously optimize processes.
+146: How to Level Up
+147: Strengthen platform resilience with robust, full-stack software-defined networking, microsegmentation, and zero-trust security policies across all containerized and VM workloads
+148: Optimize operational efficiency with intelligent capabilities to standardize management for fleets of clusters
+149: Accelerate next-generation AI/ML and stateful application deployment, using zero-friction self-service infrastructure blueprints
+150: Ready to accelerate your journey?
+151: Get a personalized roadmap session with a Nutanix cloud native architect.
+152: [Speak with an Expert]
+153: Recommended Content Assets
+154: E-Book
+155: The Definitive Guide to Enterprise Cloud Native Deployment
+156: Read eBook ->
+157: Blog
+158: Networking and Security for Full Stack NKP Production Grade Containerization
+159: Read Blog ->
+160: Video
+161: What Comes After: Day 2 Kubernetes Done Right
+162: Watch Video ->
+163: Mapped Solutions
+164: Product - Nutanix Kubernetes Platform - Explore a complete and open enterprise Kubernetes platform that can run anywhere
+165: Product - Nutanix Data Services - Extend data services to containerized apps and simplify data management
+166: Solution - Nutanix Cloud Native Solution - Run your workloads on a full-stack, enterprise platform for containers and VMs
+167: Standalone Page  (IN WRIKE MAKE SURE IT GOES THROUGH ELENA FOR AEO AND BLAIR FOR PAID SEARCH REFINEMENTS)
+168: Interactive Readiness Assessment
+169: How Ready Are You to Scale Cloud Native Operations?
+170: Cloud native has become the standard, but operating it shouldn't mean managing chaos. Evaluate your container operational readiness and pinpoint friction across VMs, Kubernetes, and enterprise data services.
+171: Evaluate Your Cloud Native Readiness
+172: As organizations transition to cloud native architectures, the complexity of managing unified operations across VMs and containers often becomes a bottleneck. Platform engineering teams are tasked with delivering self-service capabilities and scalable data services, but legacy infrastructure and fragmented tooling can stand in the way.
+173: Take this one-minute assessment to identify operational gaps, evaluate your readiness for enterprise-grade Kubernetes data services, and uncover opportunities to empower your developers. Upon completion, you'll receive a tailored roadmap with recommended next steps.
+174: [Embed Quiz - Start on Question 1]
+175: FAQ
+176: What is the Cloud Native Readiness Assessment?
+177: The Cloud Native Readiness Assessment is a one-minute benchmark tool that helps organizations evaluate their container operational readiness, identify operational gaps across VMs and Kubernetes, and receive a tailored roadmap for scaling enterprise data services.
+178: How can platform engineering scale cloud native operations?
+179: Platform engineering scales cloud native operations by standardizing lifecycle management, automating Day-2 operations like logging and storage, and providing developers with unified self-service capabilities.
+180: Who should take this assessment?
+181: This assessment is designed for IT leaders, platform engineers, and cloud architects who are managing or planning to manage unified operations across virtual machines, Kubernetes, and enterprise data services.
+182: ©2026 Nutanix, Inc. All rights reserved. Nutanix, the Nutanix logo and all Nutanix product and service names mentioned are registered trademarks or trademarks of Nutanix, Inc. in the United States and other countries. Kubernetes is a registered trademark of The Linux Foundation in the United States and other countries. All other brand names mentioned are for identification purposes only and may be the trademarks of their respective holder(s).
+183: Copy Blocks
+184: 50-Word Copy Block + 3 Takeaway Bullets + 3 Optional Subject Lines
+185: Folloze Copy (Title: <75 characters, Description: <165 characters)
+186: 50-Word Copy Block
+187: Cloud native has become the standard, but operating it shouldn't mean managing chaos. Take our One-minute Operational Readiness Assessment to evaluate your container maturity and identify friction across VMs, Kubernetes, and data services. Discover your score and receive a personalized action plan with custom operational advice to accelerate your platform engineering scale.
+188: 3 Takeaway Bullets
+189: Assess in 1 Minute: Evaluate your operational consistency across VMs, Kubernetes, and enterprise data services quickly and easily.
+190: Identify Critical Gaps: Pinpoint friction points in platform modernization, fleet automation, and business agility.
+191: Get Your Action Plan: Receive immediate, score-based insights and recommended next steps to accelerate your cloud native journey.
+192: 3 Optional Subject Lines
+193: How ready are you to scale cloud native operations?
+194: Take the One-Minute Cloud Native Readiness Assessment
+195: Are your cloud native operations built to scale?
+196: Folloze Copy
+197: Title (<75 characters): Cloud Native Operational Readiness Assessment
+198: Description (<165 characters): Take our one-minute assessment to evaluate your container operational readiness and receive a personalized action plan to seamlessly scale your cloud operations.

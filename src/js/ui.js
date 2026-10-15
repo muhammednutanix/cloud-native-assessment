@@ -63,11 +63,32 @@ export function renderQuestion() {
           </p>
           <p><small>Take this 1-minute benchmark assessment to evaluate your container operational readiness and pinpoint friction across VMs, Kubernetes, and enterprise data services.</small></p>
           <div class="cta-buttons mt-4">
-            <button class="btn btn-primary" id="startAssessmentBtn">Start Assessment</button>
+            <button class="btn btn-primary" id="startAssessmentBtn">Start 1-Minute Assessment</button>
           </div>
+
+               <section class="value-pillars" aria-label="Assessment value pillars">
+        <div class="container">
+          <div class="value-pillars-grid">
+            <article class="value-pillar">
+              <span class="value-pillar-label">One-Minute Benchmark</span>
+              <p>Five quick questions evaluating operational consistency and maturity.</p>
+            </article>
+            <article class="value-pillar">
+              <span class="value-pillar-label">Score-Based Routing</span>
+              <p>Evaluates your overall operational maturity to deliver targeted insights.</p>
+            </article>
+            <article class="value-pillar">
+              <span class="value-pillar-label">Tailored Roadmap</span>
+              <p>Receive immediate benchmark analysis with specific next steps and assets.</p>
+            </article>
+          </div>
+        </div>
+      </section>
         </div>
 
       </section>
+
+ 
 
 
       <!-- Quiz overlay (hidden until user clicks Start Assessment) -->
@@ -75,7 +96,17 @@ export function renderQuestion() {
 
         <div class="quiz-container">
 
-          <button id="closeQuizBtn" class="btn btn-secondary" style="position:absolute;right:28px;top:28px;border-radius:12px;">Close</button>
+          <div class="quiz-window-header">
+            <span>Cloud Native Readiness Assessment</span>
+            <button
+              id="closeQuizBtn"
+              class="quiz-close-btn"
+              type="button"
+              aria-label="Close assessment"
+              title="Close assessment">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
 
           ${renderProgress()}
 
@@ -128,17 +159,23 @@ export function renderQuestion() {
             <div class="question-footer">
 
               <button
-                  class="btn btn-secondary"
-                  id="previousButton"
-                  ${state.currentQuestion === 0 ? "disabled" : ""}>
-                  Back
+                class="quiz-nav-btn quiz-nav-back"
+                id="previousButton"
+                type="button"
+                aria-label="Go back"
+                title="Go back"
+                ${state.currentQuestion === 0 ? "disabled" : ""}>
+                <span aria-hidden="true">&larr;</span>
               </button>
 
               <button
-                  class="btn ${state.currentQuestion === QUESTIONS.length - 1 ? "report-btn" : "btn-primary"}"
-                  id="nextButton"
-                  disabled>
-                  ${state.currentQuestion === QUESTIONS.length - 1 ? "See Report" : "Continue →"}
+                class="quiz-nav-btn quiz-nav-next"
+                id="nextButton"
+                type="button"
+                  aria-label="${state.currentQuestion === QUESTIONS.length - 1 ? "See report" : "Next"}"
+                  title="${state.currentQuestion === QUESTIONS.length - 1 ? "See report" : "Next"}"
+                disabled>
+                  <span class="quiz-next-label">Next</span>
               </button>
 
             </div>
@@ -222,16 +259,32 @@ function bindEvents(question) {
   nextBtn.addEventListener("click", () => {
     if (!selectedOption) return;
 
+    nextBtn.disabled = true;
+    options.forEach((option) => {
+      option.disabled = true;
+    });
+
     saveAnswer(state.currentQuestion, question.id, selectedOption);
 
-    if (state.currentQuestion === QUESTIONS.length - 1) {
-      window.location.assign(createReportUrl(state.answers));
-      return;
-    }
+    const questionCard = app.querySelector(".question-card");
+    const progressFill = app.querySelector(".progress-fill");
+    const nextPercent = (state.answers.length / QUESTIONS.length) * 100;
 
-    nextQuestion();
+    if (progressFill) progressFill.style.width = `${nextPercent}%`;
+    if (questionCard) questionCard.classList.add("is-transitioning");
 
-    renderQuestion();
+    window.setTimeout(() => {
+      if (state.currentQuestion === QUESTIONS.length - 1) {
+        renderProcessingScreen();
+        window.setTimeout(() => {
+          window.location.assign(createReportUrl(state.answers));
+        }, 2200);
+        return;
+      }
+
+      nextQuestion();
+      renderQuestion();
+    }, 420);
   });
 
   prevBtn.addEventListener("click", () => {
@@ -269,4 +322,45 @@ function bindEvents(question) {
       document.body.style.overflow = "";
     });
   }
+}
+
+function renderProcessingScreen() {
+  app.innerHTML = `
+    <section class="processing-screen" aria-live="polite">
+      <div class="processing-card">
+        <div class="processing-icon" aria-hidden="true">✦</div>
+        <h1>Building your readiness profile</h1>
+        <p class="processing-copy">
+          We&rsquo;re comparing your responses across all five dimensions and
+          prioritizing the actions with the highest operational impact.
+        </p>
+        <div class="processing-progress-label">
+          <span>Tailoring recommendations</span>
+          <strong id="processingPercent">0%</strong>
+        </div>
+        <div class="processing-progress-track">
+          <span></span>
+        </div>
+        <div class="processing-steps">
+          <span><i></i>Responses scored</span>
+          <span><i></i>Maturity mapped</span>
+          <span><i></i>Resources matched</span>
+        </div>
+        <p class="processing-note">This usually takes less than 10 seconds. Your responses remain private.</p>
+      </div>
+    </section>
+  `;
+
+  const percentEl = app.querySelector("#processingPercent");
+  const startedAt = performance.now();
+  const duration = 2100;
+
+  function updateProcessingPercent(now) {
+    const progress = Math.min((now - startedAt) / duration, 1);
+    percentEl.textContent = `${Math.round(progress * 100)}%`;
+
+    if (progress < 1) requestAnimationFrame(updateProcessingPercent);
+  }
+
+  requestAnimationFrame(updateProcessingPercent);
 }

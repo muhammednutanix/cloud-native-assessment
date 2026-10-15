@@ -8,36 +8,36 @@
 export const RESOURCES = {
   L1: {
     nextStep: {
-      title: "Build Your Cloud Native Foundation",
+      title: "Ready to accelerate your journey?",
       description:
-        "Start by standardizing infrastructure operations and introducing automation across your environments.",
+        "Get a personalized roadmap session with a Nutanix cloud native architect.",
     },
 
     cta: {
-      title: "Talk to a Cloud Native Specialist",
-      button: "Schedule a Discovery Session",
+      title: "Ready to accelerate your journey?",
+      button: "Speak with an Expert",
     },
 
     solution: {
-      title: "Recommended Focus",
+      title: "How to Level Up",
       description:
-        "Create a standardized operational model before scaling Kubernetes and modern application platforms.",
+        "Minimize operational fragmentation by unifying VM and container management under a single, cohesive operating model.",
     },
 
     resources: [
       {
-        type: "Guide",
-        title: "Cloud Native Readiness Guide",
+        type: "E-Book",
+        title: "From Chaos to Control: A Cloud Native Strategy Guide for IT Leaders.",
         url: "#",
       },
       {
         type: "Blog",
-        title: "Why Operational Consistency Matters",
+        title: "The High Cost of Free: Why DIY Kubernetes Breaks Down in Production",
         url: "#",
       },
       {
-        type: "Assessment",
-        title: "Infrastructure Modernization Best Practices",
+        type: "Video",
+        title: "Unified VM & Kubernetes Operations with Nutanix",
         url: "#",
       },
     ],
@@ -45,36 +45,36 @@ export const RESOURCES = {
 
   L2: {
     nextStep: {
-      title: "Scale Your Platform Operations",
+      title: "Ready to accelerate your journey?",
       description:
-        "Expand automation, improve consistency and eliminate operational bottlenecks across teams.",
+        "Get a personalized roadmap session with a Nutanix cloud native architect.",
     },
 
     cta: {
-      title: "Meet with a Platform Expert",
-      button: "Book a Consultation",
+      title: "Ready to accelerate your journey?",
+      button: "Speak with an Expert",
     },
 
     solution: {
-      title: "Recommended Focus",
+      title: "How to Level Up",
       description:
-        "Increase platform automation and establish standardized operational workflows.",
+        "Transition from partial automation to declarative, fleet-wide cluster management across your enterprise.",
     },
 
     resources: [
       {
-        type: "Whitepaper",
-        title: "Platform Engineering Fundamentals",
+        type: "E-Book",
+        title: "What It Takes to Build a Production‑Ready Kubernetes Platform",
         url: "#",
       },
       {
-        type: "Webinar",
-        title: "Scaling Kubernetes Operations",
+        type: "Blog",
+        title: "The Modern App Paradox: Why Your App Containers Are So Heavy",
         url: "#",
       },
       {
-        type: "Case Study",
-        title: "Operational Transformation Success Story",
+        type: "Video",
+        title: "Consistent Hybrid Multicloud Kubernetes experience for Platform Engineers and Developers",
         url: "#",
       },
     ],
@@ -82,36 +82,36 @@ export const RESOURCES = {
 
   L3: {
     nextStep: {
-      title: "Unify Cloud Native Operations",
+      title: "Ready to accelerate your journey?",
       description:
-        "Continue simplifying platform management while expanding developer self-service capabilities.",
+        "Get a personalized roadmap session with a Nutanix cloud native architect.",
     },
 
     cta: {
-      title: "See the Platform in Action",
-      button: "Request a Demo",
+      title: "Ready to accelerate your journey?",
+      button: "Speak with an Expert",
     },
 
     solution: {
-      title: "Recommended Focus",
+      title: "How to Level Up",
       description:
-        "Enable platform engineering practices that support developers while maintaining governance.",
+        "Streamline day-2 operations by implementing automated, zero-downtime upgrades across your entire Kubernetes cluster fleet.",
     },
 
     resources: [
       {
-        type: "Demo",
-        title: "Cloud Native Platform Walkthrough",
+        type: "E-Book",
+        title: "Cloud Native Playbook for Platform Engineers",
+        url: "#",
+      },
+      {
+        type: "Blog",
+        title: "Operationalizing Kubernetes: Why the Future Belongs to Full-Stack Platforms",
         url: "#",
       },
       {
         type: "Video",
-        title: "Platform Engineering Best Practices",
-        url: "#",
-      },
-      {
-        type: "Guide",
-        title: "Enterprise Kubernetes Operations",
+        title: "Kubernetes Lifecycle Management with NKP and Cluster API",
         url: "#",
       },
     ],
@@ -119,36 +119,36 @@ export const RESOURCES = {
 
   L4: {
     nextStep: {
-      title: "Optimize and Innovate",
+      title: "Ready to accelerate your journey?",
       description:
-        "Continue driving operational excellence while preparing your platform for future workloads and AI-powered operations.",
+        "Get a personalized roadmap session with a Nutanix cloud native architect.",
     },
 
     cta: {
-      title: "Explore Advanced Platform Capabilities",
-      button: "Talk to an Expert",
+      title: "Ready to accelerate your journey?",
+      button: "Speak with an Expert",
     },
 
     solution: {
-      title: "Recommended Focus",
+      title: "How to Level Up",
       description:
-        "Expand platform capabilities, strengthen developer experiences and prepare for emerging cloud native workloads.",
+        "Strengthen platform resilience with robust, full-stack software-defined networking, microsegmentation, and zero-trust security policies across all containerized and VM workloads.",
     },
 
     resources: [
       {
-        type: "Executive Brief",
-        title: "The Future of Platform Engineering",
+        type: "E-Book",
+        title: "The Definitive Guide to Enterprise Cloud Native Deployment",
         url: "#",
       },
       {
-        type: "Customer Story",
-        title: "Enterprise Cloud Native Success",
+        type: "Blog",
+        title: "Networking and Security for Full Stack NKP Production Grade Containerization",
         url: "#",
       },
       {
-        type: "Workshop",
-        title: "Advanced Platform Strategy Session",
+        type: "Video",
+        title: "What Comes After: Day 2 Kubernetes Done Right",
         url: "#",
       },
     ],

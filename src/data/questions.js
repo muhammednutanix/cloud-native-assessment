@@ -22,12 +22,12 @@ export const QUESTIONS = [
       },
       {
         id: 2,
-        label: "Mix VMs & Containers",
+        label: "Mix of VMs & Containers",
         score: 2,
       },
       {
         id: 3,
-        label: "Primarily Kubernetes",
+        label: "Primarily K8s",
         score: 3,
       },
       {
@@ -75,7 +75,7 @@ export const QUESTIONS = [
     analyticsId: "OC",
     title: "Operational Consistency",
     question:
-      "How consistent are operations across datacenter, public cloud and edge?",
+      "How consistent are operations across datacenter, public clouds, and the edge?",
     description: "Consider deployment, monitoring and operational workflows.",
 
     options: [
@@ -107,18 +107,18 @@ export const QUESTIONS = [
     analyticsId: "PS",
     title: "Platform Standardization",
     question:
-      "How consistent are operational standards across Kubernetes, infrastructure and data management?",
+      "How consistent are operational standards across Kubernetes, infrastructure, and data management?",
     description: "Think about governance, tooling and operational standards.",
 
     options: [
       {
         id: 1,
-        label: "Ad-hoc",
+        label: "Ad hoc",
         score: 1,
       },
       {
         id: 2,
-        label: "Fragmented",
+        label: "Fragmented across vendors",
         score: 2,
       },
       {
@@ -128,7 +128,7 @@ export const QUESTIONS = [
       },
       {
         id: 4,
-        label: "Unified platform",
+        label: "Unified Platform",
         score: 4,
       },
     ],
@@ -137,29 +137,29 @@ export const QUESTIONS = [
   {
     id: "agility",
     analyticsId: "BA",
-    title: "Business Agility & Scale",
+    title: "Business Agility and Scale",
     question: "How fast can your organization roll out major new initiatives?",
     description: "Consider provisioning, deployment and operational speed.",
 
     options: [
       {
         id: 1,
-        label: "Slow — major manual effort",
+        label: "Slow: New initiatives require major manual architecture and custom tooling",
         score: 1,
       },
       {
         id: 2,
-        label: "Moderate — some bottlenecks",
+        label: "Moderate: Semi-automated with some bottlenecks",
         score: 2,
       },
       {
         id: 3,
-        label: "Fast — standardized templates & pipelines",
+        label: "Fast: Fully automated templates and pipelines",
         score: 3,
       },
       {
         id: 4,
-        label: "Immediate — seamlessly",
+        label: "Immediate: Self-service capabilities enabled across the organization",
         score: 4,
       },
     ],

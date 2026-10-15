@@ -131,9 +131,29 @@ p {
   margin-inline: auto;
 }
 
+.assessment .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .quiz-container {
   width: min(100% - 2rem, var(--quiz-width));
   margin-inline: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
+
+.cta-buttons .btn {
+  min-width: 220px;
 }
 
 /* ==========================================================
@@ -142,6 +162,45 @@ p {
 
 section {
   padding: var(--space-20) 0;
+}
+
+.value-pillars {
+  padding-top: 0;
+  padding-bottom: var(--space-12);
+}
+
+.value-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.value-pillar {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.value-pillar-label {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+}
+
+.value-pillar p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+}
+
+@media (max-width: 768px) {
+  .value-pillars-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ==========================================================
@@ -204,6 +263,23 @@ section {
 
 .hidden {
   display: none !important;
+}
+
+.assessment .hero {
+  width: 100%;
+}
+
+.assessment .hero h1,
+.assessment .hero p,
+.assessment .hero .eyebrow,
+.assessment .hero small {
+  color: var(--color-white);
+}
+
+.assessment .hero small {
+  display: block;
+  max-width: 760px;
+  opacity: 0.9;
 }
 
 .mt-1 {

@@ -143,8 +143,7 @@ function renderReport(report, mount) {
   mount.querySelector("#riskUrgency").textContent = `Level ${levelNumber}`;
   mount.querySelector(".readiness-meter span").style.width =
     `${(report.score / 20) * 100}%`;
-  mount.querySelector(".readiness-caption").textContent =
-    report.level.title.replace(" Operator", "");
+  mount.querySelector(".readiness-caption").textContent = report.level.title;
 
   renderBreakdown(report, mount);
   renderActions(report, mount);
@@ -182,7 +181,7 @@ function renderActions(report, mount) {
     .map(
       (item, index) => `<div class="report-card action-card">
         <span class="card-number">${String(index + 1).padStart(2, "0")}</span>
-        <h3>Recommendation</h3>
+        <h3>How to Level Up</h3>
         <p>${item}</p>
       </div>`,
     )
@@ -203,7 +202,7 @@ function renderResources(report, mount) {
       <p>${report.resources.nextStep.description}</p>
     </div>
     <div class="report-card">
-      <span class="answer-label">RECOMMENDED FOCUS</span>
+      <span class="answer-label">HOW TO LEVEL UP</span>
       <h3>${report.resources.solution.title}</h3>
       <p>${report.resources.solution.description}</p>
     </div>
