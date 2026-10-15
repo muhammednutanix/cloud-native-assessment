@@ -211,34 +211,236 @@ section {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 64px 24px;
+  padding: 24px 18px;
   background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
 }
 
 .lead-gate-card {
-  width: min(100%, 780px);
-  background: rgba(17, 24, 39, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  border-radius: 28px;
-  box-shadow: 0 28px 80px rgba(15, 23, 42, 0.34);
-  padding: clamp(2rem, 4vw, 3rem);
+  width: min(100%, 1200px);
+  background: rgba(17, 24, 39, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 22px;
+  box-shadow: none;
+  padding: 18px 18px 12px;
+}
+
+.lead-gate-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.2fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.report-preview-panel,
+.lead-form-panel {
+  min-width: 0;
+}
+
+.lead-form-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  max-height: none;
+  padding: 0 4px 0 0;
 }
 
 .lead-gate-card h1 {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: #f8fafc;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2.7rem, 3vw, 4.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.report-preview-card {
+  height: 100%;
+  background: transparent;
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  border-radius: 18px;
+  padding: 22px 20px 18px;
+  box-shadow: none;
+}
+
+.report-preview-kicker {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.report-preview-card h2 {
+  margin: 0 0 1.35rem;
+  color: #f8fafc;
+  font-size: clamp(3rem, 3vw, 4.2rem);
+  line-height: 0.93;
+}
+
+.report-preview-score-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.2rem;
+}
+
+.report-preview-score {
+  display: grid;
+  place-items: center;
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.16);
+  border: 1px solid rgba(34, 197, 94, 0.38);
+  color: #dcfce7;
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+
+.report-preview-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: rgba(226, 232, 240, 0.72);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+}
+
+.report-preview-meta strong {
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 1.2rem;
+}
+
+.report-preview-summary {
+  color: rgba(226, 232, 240, 0.9);
+  line-height: 1.6;
+  font-size: 1rem;
 }
 
 .lead-copy {
   max-width: 640px;
   color: rgba(226, 232, 240, 0.8);
   font-size: 1.05rem;
-  line-height: 1.7;
+  line-height: 1.5;
+  margin-bottom: 1.1rem;
 }
 
 .marketo-form-shell {
-  margin-top: 2rem;
+  margin-top: 0.2rem;
+  border-radius: 14px;
+  background: transparent;
+  padding: 0;
+  border: none;
+  overflow: visible;
+}
+
+.marketo-form-shell .mktoForm,
+.marketo-form-shell form,
+.marketo-form-shell .mktoFormRow,
+.marketo-form-shell .mktoFormCol,
+.marketo-form-shell .mktoFieldWrap,
+.marketo-form-shell .mktoField,
+.marketo-form-shell .mktoButtonWrap,
+.marketo-form-shell .mktoButtonRow,
+.marketo-form-shell .mktoButton {
+  all: revert;
+}
+
+.marketo-form-shell * {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.marketo-form-shell .mktoForm,
+.marketo-form-shell form {
+  width: 100% !important;
+  max-width: 100% !important;
+  background: transparent !important;
+  color: #f8fafc !important;
+}
+
+.marketo-form-shell .mktoFormRow {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.marketo-form-shell .mktoFormCol {
+  width: 100% !important;
+  float: none !important;
+}
+
+.marketo-form-shell .mktoFieldWrap {
+  width: 100% !important;
+  display: block !important;
+  margin-bottom: 0 !important;
+}
+
+.marketo-form-shell .mktoLabel,
+.marketo-form-shell label {
+  color: #e2e8f0 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.02em !important;
+  font-weight: 700 !important;
+  margin-bottom: 6px !important;
+}
+
+.marketo-form-shell .mktoField,
+.marketo-form-shell input,
+.marketo-form-shell select,
+.marketo-form-shell textarea {
+  width: 100% !important;
+  min-height: 42px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(148, 163, 184, 0.1) !important;
+  background: rgba(15, 23, 42, 0.26) !important;
+  color: #f8fafc !important;
+  padding: 0.7rem 0.8rem !important;
+  box-shadow: none !important;
+}
+
+.marketo-form-shell textarea.mktoField {
+  min-height: 110px !important;
+}
+
+.marketo-form-shell input::placeholder,
+.marketo-form-shell textarea::placeholder {
+  color: rgba(226, 232, 240, 0.5) !important;
+}
+
+.marketo-form-shell .mktoRequiredMark {
+  color: #fca5a5 !important;
+}
+
+.marketo-form-shell .mktoButtonWrap,
+.marketo-form-shell .mktoButtonRow {
+  margin-top: 1rem !important;
+  text-align: left !important;
+}
+
+.marketo-form-shell .mktoButton {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 220px !important;
+  padding: 0.9rem 1.4rem !important;
+  border: none !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #1fdde9 0%, #7855fa 52%, #ff7766 100%) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+}
+
+.marketo-form-shell .mktoButton:hover,
+.marketo-form-shell .mktoButton:focus {
+  filter: brightness(1.04) !important;
 }
 
 .marketo-loading,
@@ -267,78 +469,6 @@ section {
   display: none;
 }
 
-.marketo-form-shell .mktoForm,
-.marketo-form-shell form {
-  width: 100% !important;
-  max-width: 100% !important;
-}
-
-.marketo-form-shell .mktoFormRow {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: 14px;
-}
-
-.marketo-form-shell .mktoFieldWrap {
-  width: 100% !important;
-}
-
-.marketo-form-shell .mktoFormCol {
-  width: 100% !important;
-}
-
-.marketo-form-shell label,
-.marketo-form-shell .mktoLabel {
-  color: #e2e8f0;
-  font-weight: 600;
-}
-
-.marketo-form-shell input,
-.marketo-form-shell select,
-.marketo-form-shell textarea,
-.marketo-form-shell .mktoField {
-  width: 100% !important;
-  min-height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.35);
-  background: rgba(15, 23, 42, 0.7);
-  color: #f8fafc;
-  padding: 0.8rem 0.9rem;
-}
-
-.marketo-form-shell textarea.mktoField {
-  min-height: 110px;
-}
-
-.marketo-form-shell .mktoRequiredMark {
-  color: #fca5a5;
-}
-
-.marketo-form-shell .mktoButtonWrap,
-.marketo-form-shell .mktoButtonRow {
-  margin-top: 1rem;
-}
-
-.marketo-form-shell .mktoButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 220px;
-  padding: 0.95rem 1.5rem;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.marketo-form-shell .mktoButton:hover,
-.marketo-form-shell .mktoButton:focus {
-  filter: brightness(1.04);
-}
-
 .ghost-btn {
   display: inline-flex;
   align-items: center;
@@ -351,9 +481,17 @@ section {
   margin-top: 0.75rem;
 }
 
-@media (max-width: 640px) {
-  .marketo-form-shell .mktoFormRow {
+.marketo-preload {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .lead-gate-grid {
     grid-template-columns: 1fr;
+  }
+
+  .lead-gate-card {
+    padding: 16px;
   }
 }
 
