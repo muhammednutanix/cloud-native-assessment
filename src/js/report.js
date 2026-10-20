@@ -2,6 +2,7 @@ import "../css/variables.scss";
 import "../css/main.scss";
 import "../css/lead-form.scss";
 import "../css/report.scss";
+import "../css/report-paper.scss";
 import html2pdf from "html2pdf.js";
 
 import { calculateScore, getLevel } from "./assessment.js";
@@ -276,9 +277,11 @@ function renderError(message, mount) {
 
 function downloadPdf() {
   const element = document.querySelector(".report-layout");
+  const reportPage = document.querySelector("[data-cna-report]");
   if (!element) return;
 
   element.classList.add("pdf-export");
+  reportPage?.classList.add("pdf-rendering");
 
   const options = {
     margin: 0,
@@ -297,7 +300,10 @@ function downloadPdf() {
     .set(options)
     .from(element)
     .save()
-    .finally(() => element.classList.remove("pdf-export"));
+    .finally(() => {
+      element.classList.remove("pdf-export");
+      reportPage?.classList.remove("pdf-rendering");
+    });
 }
 
 document.addEventListener("click", (event) => {

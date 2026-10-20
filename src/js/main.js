@@ -10,6 +10,7 @@ import "../css/main.scss";
 import "../css/lead-form.scss";
 import "../css/quiz.scss";
 import "../css/report.scss";
+import "../css/report-paper.scss";
 
 import { QUESTIONS } from "../data/questions";
 import { LEVELS } from "../data/levels";

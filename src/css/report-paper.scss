@@ -1,0 +1,103 @@
+.report-page:not(.pdf-rendering) {
+  padding: 24px 24px 36px !important;
+  background: linear-gradient(135deg, #1fdde9 0%, #7855fa 52%, #ff7766 100%) fixed !important;
+}
+
+.report-page:not(.pdf-rendering) .report-layout {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 42px 56px 56px;
+  border-radius: 3px;
+  background: #ffffff !important;
+  box-shadow: 0 28px 80px rgba(22, 18, 48, 0.28);
+  color: #20242b !important;
+}
+
+.report-page:not(.pdf-rendering) .report-layout :is(h1, h2, h3, p, span, strong, a, button) {
+  color: #20242b !important;
+}
+
+.report-page:not(.pdf-rendering) .report-header {
+  border-bottom-color: #e2e6eb !important;
+}
+
+.report-page:not(.pdf-rendering) .brand-mark img {
+  filter: brightness(0) !important;
+}
+
+.report-page:not(.pdf-rendering) :is(.report-eyebrow, .section-eyebrow) {
+  color: #087f91 !important;
+}
+
+.report-page:not(.pdf-rendering) :is(.header-label, .score-label, .answer-label, .readiness-caption, .hero-kicker, .section-intro, .hero-summary) {
+  color: #626b76 !important;
+}
+
+.report-page:not(.pdf-rendering) .report-hero {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.report-page:not(.pdf-rendering) :is(.readiness-strip, .report-card, .cta-card) {
+  border-color: #dfe4ea !important;
+  background: #ffffff !important;
+  box-shadow: 0 3px 12px rgba(22, 35, 48, 0.06) !important;
+}
+
+.report-page:not(.pdf-rendering) .readiness-strip {
+  background: #f5f8fa !important;
+}
+
+.report-page:not(.pdf-rendering) .readiness-strip .score-circle span {
+  background: #ffffff !important;
+}
+
+.report-page:not(.pdf-rendering) .readiness-level {
+  color: #087f69 !important;
+}
+
+.report-page:not(.pdf-rendering) .readiness-meter {
+  background: #dcebe7 !important;
+}
+
+.report-page:not(.pdf-rendering) .readiness-meter span {
+  background: #159a72 !important;
+}
+
+.report-page:not(.pdf-rendering) :is(.readiness-card, .report-highlight) {
+  border-color: #b8dfe2 !important;
+  background: #f1fafb !important;
+}
+
+.report-page:not(.pdf-rendering) .card-number {
+  background: #e8f5f6 !important;
+  color: #087f91 !important;
+}
+
+.report-page:not(.pdf-rendering) :is(.report-next-steps, .report-resources-section, .report-cta) {
+  border-top-color: #e2e6eb !important;
+}
+
+.report-page:not(.pdf-rendering) .report-card a {
+  color: #087f91 !important;
+}
+
+.report-page:not(.pdf-rendering) .btn-primary {
+  background: #7855fa !important;
+  color: #ffffff !important;
+}
+
+.report-page:not(.pdf-rendering) .btn-secondary {
+  border-color: #c9d1d9 !important;
+  background: #ffffff !important;
+  color: #20242b !important;
+}
+
+@media (max-width: 640px) {
+  .report-page:not(.pdf-rendering) .report-layout {
+    margin: 12px auto;
+    padding: 24px 20px 32px;
+    border-radius: 2px;
+  }
+}
