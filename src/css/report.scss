@@ -466,7 +466,7 @@
 }
 
 .report-page .brand-mark img {
-  filter: brightness(0) invert(1) !important;
+  filter: brightness(0) saturate(100%) !important;
 }
 
 .report-page .report-hero {
@@ -1786,8 +1786,8 @@
   margin: 0;
   border: 0;
   border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  background: linear-gradient(135deg, #f0fbfc 0%, #f5f2ff 100%);
+  box-shadow: inset 0 -10px 14px -12px rgba(54, 67, 105, 0.38);
 }
 
 .report-eyebrow,
@@ -2155,7 +2155,7 @@
 }
 
 .report-page .brand-mark img {
-  filter: brightness(0) invert(1) !important;
+  filter: brightness(0) saturate(100%) !important;
 }
 
 .report-page .header-label,
@@ -2248,8 +2248,8 @@
   padding: 20px 56px 8px;
   border: 0;
   border-radius: 0;
-  background: linear-gradient(135deg, #f0fbfc 0%, #f5f2ff 100%);
-  box-shadow: inset 0 -10px 14px -12px rgba(54, 67, 105, 0.38);
+  background: transparent;
+  box-shadow: none;
 }
 
 .report-page .report-challenges-section {
@@ -2275,3 +2275,110 @@
     padding: 24px 0 12px;
   }
 }
+
+.report-page .report-challenges-section .opportunity-grid {
+  background: linear-gradient(120deg, #e8fbfc 0%, #f5f2ff 100%) !important;
+}
+
+.report-page .report-next-steps .action-grid {
+  background: linear-gradient(120deg, #f1edff 0%, #fff0ed 100%) !important;
+}
+
+.report-page .report-resources-section .resource-grid {
+  background: linear-gradient(120deg, #fff4ef 0%, #eaf9f8 100%) !important;
+}
+
+.report-page .report-mapped-solutions-section .resource-grid {
+  background: linear-gradient(120deg, #eaf6fb 0%, #f1edff 100%) !important;
+}
+
+.report-page .report-challenges-section .opportunity-grid,
+.report-page .report-mapped-solutions-section .resource-grid,
+.report-page .report-next-steps .action-grid,
+.report-page .report-resources-section .resource-grid {
+  border-radius: 20px;
+}
+
+.report-page .report-challenges-section .report-card,
+.report-page .report-mapped-solutions-section .report-card,
+.report-page .report-next-steps .report-card,
+.report-page .report-resources-section .report-card {
+  border-color: rgba(83, 103, 125, 0.18) !important;
+  color: #263342 !important;
+}
+
+#topChallenges .report-card .answer-label,
+#nextActions .report-card .answer-label,
+#topRisks .report-card .answer-label,
+#mappedSolutions .report-card .answer-label {
+  color: #087f91 !important;
+}
+
+#topChallenges .report-card h3,
+#topChallenges .report-card p,
+#nextActions .report-card h3,
+#nextActions .report-card p,
+#topRisks .report-card h3,
+#topRisks .report-card p,
+#mappedSolutions .report-card h3,
+#mappedSolutions .report-card p {
+  color: #263342 !important;
+}
+
+#topRisks .report-card a {
+  color: #087f91 !important;
+}
+
+#nextActions .report-card .card-number {
+  border-color: rgba(98, 70, 199, 0.24) !important;
+  background: rgba(255, 255, 255, 0.64) !important;
+  color: #6246c7 !important;
+}
+
+#nextActions .report-card h3 {
+  font-weight: 750 !important;
+}
+
+#nextActions .report-card p {
+  font-weight: 600 !important;
+  line-height: 1.55;
+}
+
+#nextActions .report-card .answer-label {
+  font-weight: 800 !important;
+}
+
+.report-page .report-overview .score-circle {
+  flex-basis: 116px;
+  width: 116px;
+  height: 116px;
+  padding: 9px;
+}
+
+.report-page .report-overview .score-circle span {
+  font-size: 1.3rem;
+}
+
+.report-page .report-overview .readiness-meter {
+  height: 9px;
+}
+
+@media (max-width: 640px) {
+  .report-page .report-overview .score-circle {
+    flex-basis: 104px;
+    width: 104px;
+    height: 104px;
+  }
+}
+
+.report-page
+  :is(
+    .report-challenges-section,
+    .report-next-steps,
+    .report-resources-section,
+    .report-mapped-solutions-section
+  )
+  > h2 {
+  font-weight: 500;
+}
+
