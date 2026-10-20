@@ -11,18 +11,21 @@ const MAPPED_SOLUTIONS = [
     title: "Nutanix Kubernetes Platform",
     description:
       "Explore a complete and open enterprise Kubernetes platform that can run anywhere.",
+    url: "https://www.nutanix.com/products/kubernetes-management-platform",
   },
   {
     type: "PRODUCT",
     title: "Nutanix Data Services",
     description:
       "Extend data services to containerized apps and simplify data management.",
+    url: "https://www.nutanix.com/products/data-services-for-kubernetes",
   },
   {
     type: "SOLUTION",
     title: "Nutanix Cloud Native Solution",
     description:
       "Run your workloads on a full-stack, enterprise platform for containers and VMs.",
+    url: "https://www.nutanix.com/solutions/cloud-native",
   },
 ];
 
