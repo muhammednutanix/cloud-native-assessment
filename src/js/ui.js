@@ -70,15 +70,15 @@ export function renderQuestion() {
         <div class="container">
           <div class="value-pillars-grid">
             <article class="value-pillar">
-              <span class="value-pillar-label">One-Minute Benchmark</span>
+              <span class="value-pillar-label">One-Minute<br>Benchmark</span>
               <p>Five quick questions evaluating operational consistency and maturity.</p>
             </article>
             <article class="value-pillar">
-              <span class="value-pillar-label">Score-Based Routing</span>
+              <span class="value-pillar-label">Score-Based<br>Routing</span>
               <p>Evaluates your overall operational maturity to deliver targeted insights.</p>
             </article>
             <article class="value-pillar">
-              <span class="value-pillar-label">Tailored Roadmap</span>
+              <span class="value-pillar-label">Tailored<br>Roadmap</span>
               <p>Receive immediate benchmark analysis with specific next steps and assets.</p>
             </article>
           </div>
