@@ -9,7 +9,7 @@ import { QUESTIONS } from "../data/questions.js";
 import { RESOURCES } from "../data/resources.js";
 import { decodeResult } from "./encoder.js";
 import { initMarketoForm } from "./marketo.js";
-import nutanixLogo from "../assets/nutanix-logo.svg";
+import nutanixLogo from "../assets/nutanix-logo.svg?raw";
 
 export function initReport(
   mount = document.querySelector("[data-cna-report]"),
@@ -79,10 +79,7 @@ function reportTemplate() {
         <header class="report-header">
         <span class="header-label">ASSESSMENT REPORT</span>
         <div class="brand-mark">
-          <img
-            src="${nutanixLogo}"
-            alt="Nutanix"
-          />
+          ${nutanixLogo}
         </div>
         </header>
 
@@ -92,7 +89,19 @@ function reportTemplate() {
           </section>
 
           <section class="readiness-strip">
-            <div class="score-circle"><span id="scoreSummary">14/20</span></div>
+            <div class="score-circle">
+              <svg class="score-ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="scoreRingGradient" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#087f91" />
+                    <stop offset="100%" stop-color="#6246c7" />
+                  </linearGradient>
+                </defs>
+                <circle class="score-ring-track" cx="50" cy="50" r="44" />
+                <circle class="score-ring-progress" cx="50" cy="50" r="44" />
+              </svg>
+              <span class="score-value"><span id="scoreSummary">14/20</span></span>
+            </div>
             <div class="score-details">
               <span class="score-label">READINESS LEVEL</span>
               <strong id="riskUrgency" class="readiness-level">Level 3</strong>
@@ -152,8 +161,8 @@ function reportTemplate() {
             <h2>Accelerate your cloud native journey.</h2>
             <p>Explore the recommended resources or speak with a Nutanix expert to build your roadmap.</p>
             <div class="cta-buttons">
-              <button id="downloadReport" class="btn btn-primary">Download PDF</button>
-              <a href="/" data-cna-assessment-home class="btn btn-secondary">Retake Assessment</a>
+              <button id="downloadReport" class="btn btn-primary"><span>Download PDF</span></button>
+              <a href="/" data-cna-assessment-home class="btn btn-secondary"><span>Retake Assessment</span></a>
             </div>
           </div>
         </section>
@@ -194,12 +203,10 @@ function renderReport(report, mount, unlocked, justSubmitted = false) {
   const scorePercentage = (report.score / 20) * 100;
   const scoreCircle = mount.querySelector(".readiness-strip .score-circle");
   const scoreCircleValue = scoreCircle.querySelector("span");
-  scoreCircle.style.setProperty(
-    "background",
-    `conic-gradient(from -90deg, #087f91 0%, #6246c7 ${scorePercentage}%, #e5eaf0 ${scorePercentage}% 100%)`,
-    "important",
-  );
-  scoreCircleValue.style.setProperty("background", "#ffffff", "important");
+  const scoreRing = scoreCircle.querySelector(".score-ring-progress");
+  const scoreRingCircumference = 2 * Math.PI * 44;
+  scoreRing.style.strokeDasharray = `${scoreRingCircumference}`;
+  scoreRing.style.strokeDashoffset = `${scoreRingCircumference * (1 - scorePercentage / 100)}`;
   scoreCircleValue.style.setProperty("color", "#20242b", "important");
   mount.querySelector("#riskUrgency").textContent = `Level ${levelNumber}`;
   mount.querySelector(".readiness-meter span").style.width =
@@ -213,11 +220,15 @@ function renderReport(report, mount, unlocked, justSubmitted = false) {
   const printState = unlocked ? "full" : "preview";
   if (mount.dataset.printState !== printState) {
     mount.dataset.printState = printState;
-    mount.classList.remove("report-is-printing");
+    mount.classList.remove("report-is-printing", "report-motion-complete");
 
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const navigation = performance.getEntriesByType("navigation")[0];
+    const isReload = navigation?.type === "reload";
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && !isReload) {
       void mount.offsetWidth;
       mount.classList.add("report-is-printing");
+    } else {
+      mount.classList.add("report-motion-complete");
     }
   }
 
@@ -253,7 +264,7 @@ function renderActions(report, mount) {
   container.innerHTML = report.level.recommendations
     .map(
       (item, index) => `<article class="report-card action-card">
-        <span class="card-number">${String(index + 1).padStart(2, "0")}</span>
+        <span class="card-number"><span>${String(index + 1).padStart(2, "0")}</span></span>
         <p>${item}</p>
       </article>`,
     )
@@ -309,35 +320,54 @@ function renderError(message, mount) {
   `;
 }
 
-function downloadPdf() {
-  const element = document.querySelector(".report-layout");
-  const reportPage = document.querySelector("[data-cna-report]");
-  if (!element) return;
+let pdfExportInProgress = false;
 
-  element.classList.add("pdf-export");
-  reportPage?.classList.add("pdf-rendering");
+async function downloadPdf() {
+  const element = document.querySelector("[data-cna-report]");
+  if (!element || pdfExportInProgress) return;
+
+  pdfExportInProgress = true;
+  const progress = document.createElement("div");
+  progress.className = "pdf-progress-overlay";
+  progress.setAttribute("role", "status");
+  progress.setAttribute("aria-live", "polite");
+  progress.innerHTML = `
+    <div class="pdf-progress-message">
+      <span class="pdf-progress-spinner" aria-hidden="true"></span>
+      <span>Generating PDF…</span>
+    </div>
+  `;
+  document.body.append(progress);
 
   const options = {
     margin: 0,
     filename: "Cloud-Native-Readiness-Report.pdf",
+    width: 1024,
+    windowWidth: 1024,
     image: { type: "jpeg", quality: 1 },
     html2canvas: {
       scale: 2,
       useCORS: true,
+      windowWidth: 1024,
       backgroundColor: "#ffffff",
     },
-    jsPDF: { unit: "pt", format: [576, 768], orientation: "portrait" },
+    jsPDF: { unit: "pt", format: "a4", orientation: "portrait" },
     pagebreak: { mode: ["css"] },
   };
 
-  html2pdf()
-    .set(options)
-    .from(element)
-    .save()
-    .finally(() => {
-      element.classList.remove("pdf-export");
-      reportPage?.classList.remove("pdf-rendering");
-    });
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 280));
+    element.classList.add("pdf-export");
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    await html2pdf().set(options).from(element).save();
+  } finally {
+    element.classList.remove("pdf-export");
+    element.classList.add("report-motion-complete");
+    progress.classList.add("is-closing");
+    await new Promise((resolve) => setTimeout(resolve, 280));
+    progress.remove();
+    pdfExportInProgress = false;
+  }
 }
 
 document.addEventListener("click", (event) => {

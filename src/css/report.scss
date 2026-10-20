@@ -343,116 +343,6 @@
     width: 100%;
   }
 }
-.pdf-hide {
-  display: none !important;
-}
-
-/* Keep the downloadable report compact and predictable on A4 pages. */
-.pdf-export {
-  width: 100%;
-  max-width: none;
-  padding: 22px 24px 28px;
-  background: #0b0d0f;
-  color: #f5f7f9;
-  font-size: 13px;
-}
-
-.pdf-export .report-layout {
-  max-width: none;
-  background: #0b0d0f;
-}
-
-.pdf-export .report-hero {
-  padding: 28px;
-  margin-bottom: 0;
-  background: none;
-  break-inside: avoid;
-  box-shadow: none;
-  border: none;
-}
-
-.pdf-export .report-hero h1 {
-  font-size: 2.7rem;
-  margin-bottom: 20px;
-}
-
-.pdf-export .score-wrapper {
-  gap: 20px;
-  margin-bottom: 18px;
-}
-
-.pdf-export .score-circle {
-  width: 150px;
-  height: 150px;
-}
-
-.pdf-export .hero-summary {
-  font-size: 0.9rem;
-  line-height: 1.45;
-}
-
-.pdf-export .report-section,
-.pdf-export .report-cta {
-  margin-bottom: 0;
-  break-before: auto;
-}
-
-.pdf-export .report-section {
-  break-inside: auto;
-}
-
-.pdf-export .report-next-steps {
-  break-before: page;
-  page-break-before: always;
-}
-
-.pdf-export .report-section h2 {
-  margin-bottom: 14px;
-  font-size: 1.5rem;
-  break-after: avoid;
-}
-
-.pdf-export .opportunity-grid,
-.pdf-export .action-grid,
-.pdf-export .resource-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.pdf-export .report-card {
-  padding: 16px;
-  background: #15181c;
-  break-inside: avoid;
-  box-shadow: none;
-}
-
-.pdf-export .report-card h3 {
-  margin-bottom: 8px;
-  font-size: 1rem;
-}
-
-.pdf-export .report-card p {
-  line-height: 1.45;
-}
-
-.pdf-export .report-card:hover {
-  transform: none;
-}
-
-.pdf-export .cta-card {
-  padding: 28px;
-  background: #101820;
-  break-inside: avoid;
-}
-
-.pdf-export .cta-card h2 {
-  font-size: 1.7rem;
-}
-
-.pdf-export .cta-buttons {
-  display: none;
-}
-
 /* Final screen-only theme override after legacy light-theme rules. */
 .report-page,
 [data-cna-report].report-page {
@@ -603,6 +493,10 @@
 
 #reportResources .report-cta .btn-primary {
   background: #7855fa !important;
+  color: #ffffff !important;
+}
+
+#reportResources .report-cta .btn-primary > span {
   color: #ffffff !important;
 }
 
@@ -1491,14 +1385,6 @@
 }
 
 /* Final light theme overrides. Keep these last so PDF and screen share one palette. */
-.report-page,
-[data-cna-report],
-.pdf-export,
-.pdf-export .report-layout {
-  background: #ffffff !important;
-  color: #131313 !important;
-}
-
 .report-header {
   border-bottom-color: #e5e5e5 !important;
 }
@@ -1588,25 +1474,6 @@
 }
 
 /* Give each exported page its own footer so numbering stays attached to content. */
-.pdf-export .report-page-block {
-  position: relative;
-  height: auto;
-  min-height: 0;
-}
-
-.pdf-export .report-page-actions,
-.pdf-export .report-page-resources {
-  break-before: page;
-  page-break-before: always;
-}
-
-.pdf-export .report-page-actions .report-next-steps,
-.pdf-export .report-page-resources .report-resources-section,
-.pdf-export .report-page-resources .report-cta {
-  break-before: auto;
-  page-break-before: auto;
-}
-
 /* Light report theme. */
 .report-page,
 [data-cna-report] {
@@ -1733,15 +1600,6 @@
   color: #202124;
 }
 
-.pdf-export {
-  background: #ffffff;
-}
-
-.pdf-export .readiness-strip,
-.pdf-export .readiness-strip .score-circle span {
-  background: #f7f8fa;
-}
-
 /* Reference report theme: compact graphite surfaces with Nutanix accents. */
 .report-page,
 [data-cna-report] {
@@ -1774,6 +1632,13 @@
   height: auto;
   max-height: 24px;
   object-fit: contain;
+}
+
+.brand-mark svg {
+  display: block;
+  width: 108px;
+  height: auto;
+  max-height: 24px;
 }
 
 .header-label,
@@ -2031,122 +1896,6 @@
   .resource-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* Match the reference's three compact PDF pages. */
-.pdf-export {
-  padding: 20px 28px 18px;
-  background: #101112;
-}
-
-.pdf-export .report-header {
-  min-height: 40px;
-}
-
-.pdf-export .brand-mark img {
-  width: 88px;
-  max-height: 19px;
-}
-
-.pdf-export .report-hero {
-  padding: 22px 0 18px;
-}
-
-.pdf-export .report-hero h1 {
-  margin: 12px 0 8px;
-  font-size: 2.35rem;
-}
-
-.pdf-export .hero-summary {
-  margin: 18px 0 20px;
-  font-size: 0.78rem;
-  line-height: 1.4;
-}
-
-.pdf-export .hero-kicker,
-.pdf-export .section-intro {
-  font-size: 0.8rem;
-}
-
-.pdf-export .readiness-strip {
-  min-height: 92px;
-  gap: 17px;
-  padding: 14px 18px;
-}
-
-.pdf-export .readiness-strip .score-circle {
-  flex-basis: 70px;
-  width: 70px;
-  height: 70px;
-  padding: 7px;
-}
-
-.pdf-export .readiness-strip .score-circle span {
-  font-size: 1rem;
-}
-
-.pdf-export .readiness-level {
-  font-size: 1.25rem;
-}
-
-.pdf-export .readiness-caption {
-  font-size: 0.72rem;
-}
-
-.pdf-export .report-challenges-section {
-  break-inside: avoid;
-}
-
-.pdf-export .report-challenges-section .section-intro {
-  margin: 7px 0 12px;
-}
-
-.pdf-export .report-section {
-  margin-bottom: 0;
-}
-
-.pdf-export .report-next-steps,
-.pdf-export .report-resources-section,
-.pdf-export .report-cta {
-  break-before: page;
-  page-break-before: always;
-}
-
-.pdf-export .report-resources-section,
-.pdf-export .report-cta {
-  break-before: auto;
-  page-break-before: auto;
-}
-
-.pdf-export .report-card {
-  min-height: 88px;
-  padding: 12px;
-}
-
-.pdf-export .report-card h3 {
-  margin-bottom: 6px;
-  font-size: 0.78rem;
-}
-
-.pdf-export .report-card p {
-  font-size: 0.72rem;
-  line-height: 1.3;
-}
-
-.pdf-export .card-number {
-  min-width: 29px;
-  height: 19px;
-  margin-bottom: 7px;
-  font-size: 0.58rem;
-}
-
-.pdf-export .answer-label {
-  margin-bottom: 2px;
-  font-size: 0.5rem;
-}
-
-.pdf-export .cta-buttons {
-  display: none;
 }
 
 .report-page {
@@ -2504,5 +2253,318 @@
   )
   > h2 {
   font-weight: 500;
+}
+
+/* Let PDF content flow naturally while keeping sections and cards intact. */
+.pdf-export.report-page,
+[data-cna-report].pdf-export {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  background-image: none !important;
+}
+
+.pdf-export.report-page .report-layout,
+[data-cna-report].pdf-export .report-layout {
+  margin: 0 !important;
+  padding: 28px 40px 16px !important;
+}
+
+.pdf-export .report-intro {
+  width: calc(100% + 80px);
+  margin-top: -28px !important;
+  margin-left: -40px;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.pdf-export
+  .report-page-summary
+  > .report-section,
+.pdf-export #reportActions .report-section,
+.pdf-export #reportResources .report-section {
+  width: calc(100% + 80px);
+  margin-left: -40px;
+  padding-right: 40px !important;
+  padding-left: 40px !important;
+}
+
+.pdf-export #downloadReport {
+  display: none !important;
+}
+
+.pdf-export .report-cta .btn > span {
+  position: relative;
+  top: -8px;
+}
+
+.pdf-export .card-number > span {
+  position: relative;
+  top: -6px;
+  line-height: 1;
+}
+
+.pdf-export .brand-mark svg {
+  width: 130px;
+  max-height: none;
+}
+
+.pdf-export .report-hero h1 {
+  margin: 0;
+  font-size: 3rem !important;
+  line-height: 1.05;
+}
+
+.pdf-export .hero-summary {
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.pdf-export .report-intro {
+  margin-bottom: 8px !important;
+}
+
+.pdf-export .report-summary-copy {
+  margin-bottom: 10px !important;
+}
+
+.pdf-export .report-challenges-section {
+  padding-top: 12px !important;
+}
+
+.pdf-export .report-challenges-section .opportunity-grid,
+.pdf-export .report-next-steps .action-grid,
+.pdf-export .report-resources-section .resource-grid,
+.pdf-export .report-mapped-solutions-section .resource-grid {
+  padding: 0 !important;
+}
+
+.pdf-export .report-card {
+  overflow: hidden;
+  border-radius: 14px !important;
+  background-clip: padding-box;
+}
+
+.pdf-export .report-section h2 {
+  margin-bottom: 26px;
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+.pdf-export .report-card h3 {
+  font-size: 0.84rem;
+  line-height: 1.3;
+}
+
+.pdf-export .report-card p {
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.pdf-export .readiness-level {
+  font-size: 1rem;
+}
+
+.pdf-export .score-circle .score-value > span {
+  position: relative;
+  top: -8px;
+}
+
+.pdf-export .score-circle .score-value {
+  background: transparent !important;
+}
+
+.pdf-export .report-overview .score-circle {
+  flex-basis: 92px;
+  width: 92px;
+  height: 92px;
+}
+
+.pdf-export .report-overview .readiness-strip {
+  transform: translateY(28px);
+}
+
+.pdf-export #reportResources .report-cta h2 {
+  font-size: 1.5rem;
+}
+
+.pdf-export #reportResources .report-cta,
+.pdf-export #reportResources .report-cta .cta-card {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.pdf-export .report-overview .report-hero h1 {
+  background: none !important;
+  color: #20242b !important;
+  -webkit-text-fill-color: #20242b !important;
+}
+
+.pdf-export #reportResources .report-cta h2 {
+  background: none !important;
+  color: #6246c7 !important;
+  -webkit-text-fill-color: #6246c7 !important;
+}
+
+.report-page.pdf-export .report-layout,
+[data-cna-report].pdf-export .report-layout {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.report-page.pdf-export.report-is-printing::after,
+[data-cna-report].pdf-export.report-is-printing::after {
+  display: none !important;
+}
+
+[data-cna-report].report-motion-complete .report-layout {
+  animation: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+[data-cna-report].report-motion-complete::after {
+  display: none !important;
+}
+
+.pdf-export .report-section,
+.pdf-export .report-overview,
+.pdf-export .report-cta,
+.pdf-export .report-card,
+.pdf-export .cta-card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.pdf-export .report-section h2 {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.pdf-export .report-summary-copy::first-letter {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.report-page .score-circle {
+  position: relative;
+  display: grid;
+  flex: 0 0 116px;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent !important;
+}
+
+.report-page .report-overview .score-circle {
+  background: transparent !important;
+}
+
+.report-page .score-ring {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(-90deg);
+}
+
+.report-page .score-ring-track,
+.report-page .score-ring-progress {
+  fill: none;
+  stroke-width: 8;
+}
+
+.report-page .score-ring-track {
+  stroke: #e5eaf0;
+}
+
+.report-page .score-ring-progress {
+  stroke: url(#scoreRingGradient);
+  stroke-linecap: round;
+}
+
+.report-page .score-circle .score-value {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 82%;
+  height: 82%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent !important;
+  color: #20242b !important;
+  font-size: 1.3rem;
+}
+
+.report-page .readiness-strip .score-circle .score-value {
+  background: transparent !important;
+}
+
+.report-page .readiness-strip .score-circle .score-value > span {
+  display: inline;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent !important;
+  color: #20242b !important;
+}
+
+.pdf-progress-overlay {
+  position: fixed;
+  z-index: 2147483647;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f3f7fa;
+  animation: pdf-overlay-in 280ms ease-out both;
+}
+
+.pdf-progress-overlay.is-closing {
+  animation: pdf-overlay-out 280ms ease-in both;
+}
+
+.pdf-progress-message {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 26px;
+  border: 1px solid #dfe4ea;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #20242b;
+  box-shadow: 0 12px 36px rgba(22, 35, 48, 0.18);
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+.pdf-progress-spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid #e5eaf0;
+  border-top-color: #6246c7;
+  border-radius: 50%;
+  animation: pdf-progress-spin 0.8s linear infinite;
+}
+
+@keyframes pdf-progress-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pdf-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pdf-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
