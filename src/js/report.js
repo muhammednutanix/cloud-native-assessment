@@ -62,6 +62,7 @@ function reportTemplate() {
   return `
     <main class="report-layout">
       <div class="report-page-block report-page-summary">
+        <section class="report-intro">
         <header class="report-header">
         <span class="header-label">ASSESSMENT REPORT</span>
         <div class="brand-mark">
@@ -88,6 +89,7 @@ function reportTemplate() {
         </div>
 
         <p id="riskSummary" class="hero-summary report-summary-copy"></p>
+        </section>
 
         <section class="report-section report-challenges-section">
           <h2>Top Challenges</h2>

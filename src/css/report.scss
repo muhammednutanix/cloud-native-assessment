@@ -558,6 +558,74 @@
   color: #ffffff !important;
 }
 
+#reportResources .report-cta {
+  box-sizing: border-box;
+  width: calc(100% + 112px);
+  margin: 28px 0 0 -56px !important;
+  padding: 32px 56px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #f1fafb !important;
+  box-shadow: inset 0 10px 14px -12px rgba(32, 36, 43, 0.38) !important;
+}
+
+.report-page .report-layout:has(#reportResources:not([hidden])) {
+  padding-bottom: 0 !important;
+}
+
+#reportResources .report-cta .cta-card {
+  padding: 32px 0 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  text-align: center;
+}
+
+#reportResources .report-cta .section-eyebrow {
+  color: #087f91 !important;
+}
+
+#reportResources .report-cta h2 {
+  margin: 0 auto 12px;
+  background: linear-gradient(100deg, #087f91 0%, #6246c7 56%, #c34d42 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+}
+
+#reportResources .report-cta p {
+  margin: 0 auto 24px;
+  color: #43515e !important;
+}
+
+#reportResources .report-cta .btn-primary {
+  background: #7855fa !important;
+  color: #ffffff !important;
+}
+
+#reportResources .report-cta .btn-secondary {
+  border-color: #cbd8e2 !important;
+  background: #ffffff !important;
+  color: #20242b !important;
+}
+
+#reportResources .report-cta .btn-secondary:hover {
+  border-color: #087f91 !important;
+  background: #f1fafb !important;
+  color: #087f91 !important;
+}
+
+@media (max-width: 640px) {
+  #reportResources .report-cta {
+    width: calc(100% + 40px);
+    margin-left: -20px !important;
+    padding: 24px 20px !important;
+  }
+}
+
 .report-page .report-challenges-section .opportunity-grid,
 .report-page .report-mapped-solutions-section .resource-grid {
   background: linear-gradient(135deg, #166770, #3a3077);
@@ -2171,4 +2239,39 @@
   border-color: #ffffff !important;
   background: rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
+}
+
+.report-page .report-intro {
+  box-sizing: border-box;
+  width: calc(100% + 112px);
+  margin: -42px 0 28px -56px;
+  padding: 20px 56px 8px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(135deg, #f0fbfc 0%, #f5f2ff 100%);
+  box-shadow: inset 0 -10px 14px -12px rgba(54, 67, 105, 0.38);
+}
+
+.report-page .report-challenges-section {
+  border-top: 0 !important;
+}
+
+.report-page .report-intro .report-hero {
+  padding: 30px 0 18px;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 640px) {
+  .report-page .report-intro {
+    width: calc(100% + 40px);
+    margin: -24px 0 28px -20px;
+    padding: 16px 20px 4px;
+  }
+
+  .report-page .report-intro .report-hero {
+    padding: 24px 0 12px;
+  }
 }
