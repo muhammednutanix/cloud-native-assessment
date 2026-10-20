@@ -19,6 +19,8 @@ export function initReport(
 ) {
   if (!mount) return;
 
+  if (!mount.id) mount.id = "report-app";
+  mount.classList.add("report-page");
   document.addEventListener("keydown", preventPrintShortcut, true);
 
   mount.innerHTML = reportTemplate();

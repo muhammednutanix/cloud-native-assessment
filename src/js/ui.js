@@ -13,6 +13,7 @@ import { createPreviewReportUrl } from "./encoder.js";
 let app;
 // track whether overlay should be visible across renders
 let overlayVisible = false;
+let homeKeyHandlerAttached = false;
 
 /* ============================================================
  * Initialize UI
@@ -26,7 +27,24 @@ export function initUI(
 
   if (!app) return;
 
+  if (!homeKeyHandlerAttached) {
+    document.addEventListener("keydown", handleHomeStartKey);
+    homeKeyHandlerAttached = true;
+  }
+
   renderQuestion();
+}
+
+function handleHomeStartKey(event) {
+  if (overlayVisible || !["Enter", " ", "Spacebar"].includes(event.key)) return;
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.target.closest?.("button, a, input, select, textarea, [contenteditable='true']")) return;
+
+  const startButton = app?.querySelector("#startAssessmentBtn");
+  if (!startButton) return;
+
+  event.preventDefault();
+  startButton.click();
 }
 
 /* ============================================================
@@ -197,6 +215,7 @@ export function renderQuestion() {
       ?.setAttribute("aria-hidden", "true");
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+    window.requestAnimationFrame(focusFirstAnswer);
   }
 }
 
@@ -259,6 +278,24 @@ function bindEvents(question) {
 
       selectedOption = question.options[index];
       nextBtn.disabled = false;
+      window.requestAnimationFrame(() => {
+        nextBtn.focus({ preventScroll: true });
+      });
+    });
+
+    button.addEventListener("keydown", (event) => {
+      const direction = {
+        ArrowLeft: -1,
+        ArrowUp: -1,
+        ArrowRight: 1,
+        ArrowDown: 1,
+      }[event.key];
+
+      if (direction === undefined) return;
+
+      event.preventDefault();
+      const nextIndex = (index + direction + options.length) % options.length;
+      options[nextIndex].focus();
     });
   });
 
@@ -321,6 +358,7 @@ function bindEvents(question) {
       // Prevent background scrolling while overlay is open
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
+      window.requestAnimationFrame(focusFirstAnswer);
     });
   }
 
@@ -334,6 +372,10 @@ function bindEvents(question) {
       document.body.style.overflow = "";
     });
   }
+}
+
+function focusFirstAnswer() {
+  app.querySelector(".options .option")?.focus({ preventScroll: true });
 }
 
 function renderProcessingScreen() {
