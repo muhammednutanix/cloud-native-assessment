@@ -2363,6 +2363,26 @@
   height: 9px;
 }
 
+.report-page .report-layout {
+  position: relative;
+  clip-path: polygon(
+    0 4px, 7% 2px, 14% 5px, 22% 3px, 29% 4px, 37% 1px,
+    45% 5px, 53% 3px, 60% 4px, 68% 1px, 76% 4px, 84% 2px,
+    92% 5px, 100% 3px, 100% 100%, 0 100%
+  );
+  filter: drop-shadow(0 24px 28px rgba(22, 18, 48, 0.22));
+  background-color: #ffffff !important;
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(31, 221, 233, 0.11), transparent 58%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(32, 36, 43, 0.018) 0,
+      rgba(32, 36, 43, 0.018) 1px,
+      transparent 1px,
+      transparent 5px
+    ) !important;
+}
+
 @media (max-width: 640px) {
   .report-page .report-overview .score-circle {
     flex-basis: 104px;
