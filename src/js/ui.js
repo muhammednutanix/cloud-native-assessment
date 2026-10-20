@@ -8,13 +8,11 @@ console.log("UI Loaded");
 
 import { QUESTIONS } from "../data/questions.js";
 import { state, saveAnswer, nextQuestion, previousQuestion } from "./state.js";
-import { createReportUrl } from "./encoder.js";
-import { getLevel } from "./assessment.js";
+import { createPreviewReportUrl } from "./encoder.js";
 
 let app;
 // track whether overlay should be visible across renders
 let overlayVisible = false;
-let marketoScriptPromise = null;
 
 /* ============================================================
  * Initialize UI
@@ -29,13 +27,6 @@ export function initUI(
   if (!app) return;
 
   renderQuestion();
-
-  window.setTimeout(() => {
-    const formEl = document.getElementById("mktoForm_4680");
-    if (formEl) {
-      loadMarketoForm();
-    }
-  }, 120);
 }
 
 /* ============================================================
@@ -118,11 +109,6 @@ export function renderQuestion() {
           </div>
 
           ${renderProgress()}
-
-          <div class="marketo-preload" aria-hidden="true">
-            <div class="marketo-loading" id="marketoLoading" role="status">Loading secure form…</div>
-            <form id="mktoForm_4680"></form>
-          </div>
 
           <div class="question-card">
 
@@ -291,8 +277,8 @@ function bindEvents(question) {
       if (state.currentQuestion === QUESTIONS.length - 1) {
         renderProcessingScreen();
         window.setTimeout(() => {
-          renderLeadCaptureScreen();
-        }, 2200);
+            window.location.assign(createPreviewReportUrl(state.answers));
+          }, 2200);
         return;
       }
 
@@ -336,170 +322,6 @@ function bindEvents(question) {
       document.body.style.overflow = "";
     });
   }
-}
-
-function loadMarketoScript() {
-  if (window.MktoForms2) return Promise.resolve(window.MktoForms2);
-  if (marketoScriptPromise) return marketoScriptPromise;
-
-  marketoScriptPromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "https://go.nutanix.com/js/forms2/js/forms2.min.js";
-    script.async = true;
-    script.dataset.marketoLoader = "true";
-    script.addEventListener("load", () => resolve(window.MktoForms2), {
-      once: true,
-    });
-    script.addEventListener(
-      "error",
-      () => reject(new Error("Marketo script failed to load")),
-      { once: true },
-    );
-    document.body.appendChild(script);
-  }).catch((error) => {
-    marketoScriptPromise = null;
-    throw error;
-  });
-
-  return marketoScriptPromise;
-}
-
-function showMarketoError() {
-  const gate = document.getElementById("leadGate");
-  if (!gate) return;
-
-  const loading = gate.querySelector("#marketoLoading");
-  const error = gate.querySelector("#marketoError");
-  const retry = gate.querySelector("#retryMarketo");
-
-  if (loading) loading.hidden = true;
-  if (error) error.hidden = false;
-
-  if (retry) {
-    retry.addEventListener(
-      "click",
-      () => {
-        if (error) error.hidden = true;
-        if (loading) loading.hidden = false;
-        loadMarketoForm();
-      },
-      { once: true },
-    );
-  }
-}
-
-async function loadMarketoForm() {
-  const formElement = document.getElementById("mktoForm_4680");
-  if (
-    !formElement ||
-    formElement.dataset.loading === "true" ||
-    formElement.dataset.ready === "true"
-  ) {
-    return;
-  }
-
-  formElement.dataset.loading = "true";
-
-  try {
-    const MktoForms2 = await loadMarketoScript();
-    if (!formElement.isConnected) return;
-
-    MktoForms2.loadForm(
-      "https://go.nutanix.com",
-      "031-GVQ-112",
-      4680,
-      (form) => {
-        if (!formElement.isConnected) return;
-
-        formElement.dataset.loading = "false";
-        formElement.dataset.ready = "true";
-
-        const loading = document.getElementById("marketoLoading");
-        if (loading) loading.hidden = true;
-
-        form.getFormElem()[0].classList.add("nutanix-marketo-form");
-        form.vals({ URL__c: window.location.href });
-
-        const submitButton = form.getFormElem()[0].querySelector(".mktoButton");
-        if (submitButton) submitButton.textContent = "View My Full Readiness Profile";
-
-        form.onSuccess(() => {
-          try {
-            const reportUrl = createReportUrl(state.answers);
-            window.location.assign(reportUrl);
-          } catch (error) {
-            showMarketoError();
-          }
-          return false;
-        });
-      },
-    );
-  } catch (error) {
-    formElement.dataset.loading = "false";
-    showMarketoError();
-  }
-}
-
-function renderLeadCaptureScreen() {
-  document.documentElement.style.overflow = "";
-  document.body.style.overflow = "";
-
-  const score = state.answers.reduce((total, answer) => total + answer.score, 0);
-  const level = getLevel(score);
-  const levelTitle = level ? level.title : "Readiness Snapshot";
-  const levelSubtitle = level ? `Level ${level.subtitle.replace("Level ", "")}` : "Level";
-  const summary = level
-    ? level.summary
-    : "Your readiness profile is ready to review.";
-
-  app.innerHTML = `
-    <section class="lead-gate" id="leadGate" aria-live="polite">
-      <div class="lead-gate-card">
-        <div class="lead-gate-grid">
-          <div class="report-preview-panel">
-            <div class="report-preview-card">
-              <span class="report-preview-kicker">Your readiness at a glance</span>
-              <h2>${levelTitle}</h2>
-
-              <div class="report-preview-score-row">
-                <div class="report-preview-score">${score}/20</div>
-                <div class="report-preview-meta">
-                  <span>OVERALL READINESS</span>
-                  <strong>${levelSubtitle}</strong>
-                </div>
-              </div>
-
-              <p class="report-preview-summary">${summary}</p>
-            </div>
-          </div>
-
-          <div class="lead-form-panel">
-            <p class="eyebrow">Your assessment is complete</p>
-            <h1>Unlock your full readiness profile</h1>
-            <p class="lead-copy">
-              Enter your details below to instantly reveal your tailored architectural next steps and receive the downloadable PDF report.
-            </p>
-
-            <div class="marketo-form-shell">
-              <div class="marketo-loading" id="marketoLoading" role="status">
-                Loading secure form…
-              </div>
-              <form id="mktoForm_4680"></form>
-            </div>
-
-            <div class="marketo-error" id="marketoError" role="alert" hidden>
-              <p>The form could not be loaded. Check your connection and try again.</p>
-              <button class="ghost-btn" type="button" id="retryMarketo">Try again</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
-
-  window.setTimeout(() => {
-    loadMarketoForm();
-  }, 50);
 }
 
 function renderProcessingScreen() {

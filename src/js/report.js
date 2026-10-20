@@ -1,12 +1,14 @@
-import "../css/variables.css";
-import "../css/main.css";
-import "../css/report.css";
+import "../css/variables.scss";
+import "../css/main.scss";
+import "../css/lead-form.scss";
+import "../css/report.scss";
 import html2pdf from "html2pdf.js";
 
 import { calculateScore, getLevel } from "./assessment.js";
 import { QUESTIONS } from "../data/questions.js";
 import { RESOURCES } from "../data/resources.js";
 import { decodeResult } from "./encoder.js";
+import { initMarketoForm } from "./marketo.js";
 
 export function initReport(
   mount = document.querySelector("[data-cna-report]"),
@@ -34,7 +36,25 @@ export function initReport(
   }
 
   const report = buildReport(decoded.answers, mount);
-  if (report) renderReport(report, mount);
+  if (!report) return;
+
+  const fullResult = `CNA1-${decoded.answers.join("")}`;
+  const unlocked = !decoded.preview;
+
+  renderReport(report, mount, unlocked);
+
+  if (decoded.preview) {
+    initMarketoForm(mount, () => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("result", fullResult);
+      window.history.replaceState({}, "", url);
+      renderReport(report, mount, true, true);
+      mount.querySelector("#reportActions").scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  }
 }
 
 function reportTemplate() {
@@ -72,13 +92,28 @@ function reportTemplate() {
 
         <section class="report-section report-summary-section">
         <span class="section-eyebrow">ASSESSMENT SUMMARY</span>
-        <p class="section-intro">Five dimensions. One readiness snapshot.</p>
+        <p class="section-intro">Your overall cloud native readiness at a glance.</p>
         <div id="assessmentBreakdown" class="opportunity-grid"></div>
+        </section>
+
+        <section class="report-section report-lead-form" id="reportLeadForm" aria-labelledby="leadFormTitle">
+          <span class="section-eyebrow">YOUR FULL REPORT IS READY</span>
+          <h2 id="leadFormTitle">Unlock your full readiness report</h2>
+          <p class="section-intro">Complete the form to reveal your assessment breakdown, recommended next steps, and resources.</p>
+          <div class="marketo-form-shell">
+            <div class="marketo-loading" id="marketoLoading" role="status">Loading secure form…</div>
+            <form id="mktoForm_4680"></form>
+          </div>
+          <div class="marketo-error" id="marketoError" role="alert" hidden>
+            <p>The form could not be loaded. Check your connection and try again.</p>
+            <button class="ghost-btn" type="button" id="retryMarketo">Try again</button>
+          </div>
+          <p class="marketo-success" id="marketoSuccess" role="status" hidden>Thanks. Your full report is now available below.</p>
         </section>
 
       </div>
 
-      <div class="report-page-block report-page-actions">
+      <div class="report-page-block report-page-actions" id="reportActions" hidden>
         <section class="report-section report-next-steps">
         <span class="section-eyebrow">RECOMMENDED NEXT STEPS</span>
         <p class="section-intro">Focused actions to advance your cloud native journey.</p>
@@ -87,7 +122,7 @@ function reportTemplate() {
 
       </div>
 
-      <div class="report-page-block report-page-resources">
+      <div class="report-page-block report-page-resources" id="reportResources" hidden>
         <section class="report-section report-resources-section">
         <span class="section-eyebrow">RECOMMENDED RESOURCES</span>
         <p class="section-intro">Practical guidance for your next stage of growth.</p>
@@ -134,7 +169,7 @@ function buildReport(answerIds, mount) {
   };
 }
 
-function renderReport(report, mount) {
+function renderReport(report, mount, unlocked, justSubmitted = false) {
   mount.querySelector("#riskLevel").textContent = report.level.title;
   mount.querySelector("#scoreSummary").textContent = `${report.score}/20`;
   mount.querySelector("#riskSummary").textContent = report.level.summary;
@@ -145,9 +180,16 @@ function renderReport(report, mount) {
     `${(report.score / 20) * 100}%`;
   mount.querySelector(".readiness-caption").textContent = report.level.title;
 
-  renderBreakdown(report, mount);
-  renderActions(report, mount);
-  renderResources(report, mount);
+  mount.querySelector("#reportLeadForm").hidden = unlocked && !justSubmitted;
+  mount.querySelector(".report-summary-section").hidden = !unlocked;
+  mount.querySelector("#reportActions").hidden = !unlocked;
+  mount.querySelector("#reportResources").hidden = !unlocked;
+
+  if (unlocked) {
+    renderBreakdown(report, mount);
+    renderActions(report, mount);
+    renderResources(report, mount);
+  }
 }
 
 function renderBreakdown(report, mount) {

@@ -5,10 +5,11 @@
  * ============================================================
  */
 
-import "../css/variables.css";
-import "../css/main.css";
-import "../css/quiz.css";
-import "../css/report.css";
+import "../css/variables.scss";
+import "../css/main.scss";
+import "../css/lead-form.scss";
+import "../css/quiz.scss";
+import "../css/report.scss";
 
 import { QUESTIONS } from "../data/questions";
 import { LEVELS } from "../data/levels";

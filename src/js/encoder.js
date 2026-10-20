@@ -6,6 +6,7 @@
  */
 
 const VERSION = "CNA1";
+const PREVIEW_VERSION = "PCNA1";
 
 /**
  * Convert answers into a compact string.
@@ -75,7 +76,7 @@ export function decodeResult(result) {
 
     const [version, encodedAnswers] = result.split("-");
 
-    if (version !== VERSION) {
+    if (version !== VERSION && version !== PREVIEW_VERSION) {
       throw new Error("Unsupported assessment version");
     }
 
@@ -84,12 +85,14 @@ export function decodeResult(result) {
     return {
       valid: true,
       version,
+      preview: version === PREVIEW_VERSION,
       answers,
     };
   } catch (error) {
     return {
       valid: false,
       version: null,
+      preview: true,
       answers: [],
       error: error.message,
     };
@@ -101,6 +104,13 @@ export function decodeResult(result) {
  */
 export function createReportUrl(answers) {
   const result = encodeResult(answers);
+  const assessmentPath = window.location.pathname.replace(/\/+$/, "");
+
+  return `${assessmentPath}/report/?result=${encodeURIComponent(result)}`;
+}
+
+export function createPreviewReportUrl(answers) {
+  const result = `${PREVIEW_VERSION}-${encodeAnswers(answers)}`;
   const assessmentPath = window.location.pathname.replace(/\/+$/, "");
 
   return `${assessmentPath}/report/?result=${encodeURIComponent(result)}`;
