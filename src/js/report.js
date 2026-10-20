@@ -10,6 +10,7 @@ import { QUESTIONS } from "../data/questions.js";
 import { RESOURCES } from "../data/resources.js";
 import { decodeResult } from "./encoder.js";
 import { initMarketoForm } from "./marketo.js";
+import nutanixLogo from "../assets/nutanix-logo.svg";
 
 export function initReport(
   mount = document.querySelector("[data-cna-report]"),
@@ -63,37 +64,35 @@ function reportTemplate() {
     <main class="report-layout">
       <div class="report-page-block report-page-summary">
         <header class="report-header">
+        <span class="header-label">ASSESSMENT REPORT</span>
         <div class="brand-mark">
           <img
-            src="https://resources.nutanix.com/is/image/nutanix/thumb-nutanix-logo-white"
+            src="${nutanixLogo}"
             alt="Nutanix"
-            crossorigin="anonymous"
           />
         </div>
-        <span class="header-label">CLOUD NATIVE</span>
         </header>
 
-        <section class="report-hero">
-        <span class="report-eyebrow">CLOUD NATIVE READINESS REPORT</span>
-        <h1 id="riskLevel">Cloud Native Operator</h1>
-        <p class="hero-kicker">Your readiness at a glance</p>
-        </section>
+        <div class="report-overview">
+          <section class="report-hero">
+            <h1 id="riskLevel">Cloud Native Operator</h1>
+          </section>
 
-        <section class="readiness-strip">
-        <div class="score-circle"><span id="scoreSummary">14/20</span></div>
-        <div class="score-details">
-          <span class="score-label">OVERALL READINESS</span>
-          <strong id="riskUrgency" class="readiness-level">Level 3</strong>
-          <div class="readiness-meter"><span></span></div>
+          <section class="readiness-strip">
+            <div class="score-circle"><span id="scoreSummary">14/20</span></div>
+            <div class="score-details">
+              <span class="score-label">READINESS LEVEL</span>
+              <strong id="riskUrgency" class="readiness-level">Level 3</strong>
+              <div class="readiness-meter"><span></span></div>
+            </div>
+          </section>
         </div>
-        <span class="readiness-caption">Established</span>
-        </section>
 
-        <p id="riskSummary" class="hero-summary"></p>
+        <p id="riskSummary" class="hero-summary report-summary-copy"></p>
 
         <section class="report-section report-summary-section">
-        <span class="section-eyebrow">ASSESSMENT SUMMARY</span>
-        <p class="section-intro">Your overall cloud native readiness at a glance.</p>
+        <span class="section-eyebrow">YOUR ANSWERS</span>
+        <p class="section-intro">How you responded across five dimensions.</p>
         <div id="assessmentBreakdown" class="opportunity-grid"></div>
         </section>
 
@@ -131,17 +130,16 @@ function reportTemplate() {
         </section>
 
         <section class="report-cta">
-        <div class="cta-card">
-          <span class="section-eyebrow">READY FOR WHAT'S NEXT?</span>
-          <h2>Accelerate your cloud native journey.</h2>
-          <p>Explore the recommended resources or speak with a Nutanix expert to build your roadmap.</p>
-          <div class="cta-buttons">
-            <button id="downloadReport" class="btn btn-primary">Download PDF</button>
-            <a href="/" data-cna-assessment-home class="btn btn-secondary">Retake Assessment</a>
+          <div class="cta-card">
+            <span class="section-eyebrow">READY FOR WHAT'S NEXT?</span>
+            <h2>Accelerate your cloud native journey.</h2>
+            <p>Explore the recommended resources or speak with a Nutanix expert to build your roadmap.</p>
+            <div class="cta-buttons">
+              <button id="downloadReport" class="btn btn-primary">Download PDF</button>
+              <a href="/" data-cna-assessment-home class="btn btn-secondary">Retake Assessment</a>
+            </div>
           </div>
-        </div>
         </section>
-
       </div>
     </main>
   `;
@@ -176,10 +174,12 @@ function renderReport(report, mount, unlocked, justSubmitted = false) {
   mount.querySelector("#riskSummary").textContent = report.level.summary;
 
   const levelNumber = report.level.subtitle.replace("Level ", "");
+  mount
+    .querySelector(".readiness-strip .score-circle")
+    .style.setProperty("--score-progress", `${(report.score / 20) * 100}%`);
   mount.querySelector("#riskUrgency").textContent = `Level ${levelNumber}`;
   mount.querySelector(".readiness-meter span").style.width =
     `${(report.score / 20) * 100}%`;
-  mount.querySelector(".readiness-caption").textContent = report.level.title;
 
   mount.querySelector("#reportLeadForm").hidden = unlocked && !justSubmitted;
   mount.querySelector(".report-summary-section").hidden = !unlocked;
@@ -267,7 +267,6 @@ function renderError(message, mount) {
   mount.innerHTML = `
     <main class="report-layout">
       <section class="report-hero">
-        <span class="report-eyebrow">CLOUD NATIVE READINESS REPORT</span>
         <h1>Unable to Load Report</h1>
         <p class="hero-kicker">${message}</p>
       </section>
