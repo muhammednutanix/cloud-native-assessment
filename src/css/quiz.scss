@@ -132,7 +132,12 @@
   height: 100%;
   width: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-primary), var(--color-accent));
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary),
+    var(--color-primary),
+    var(--color-accent)
+  );
   transition: width 360ms ease;
 }
 
@@ -321,7 +326,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background: rgba(8, 10, 20, 0.30);
+  background: rgba(8, 10, 20, 0.3);
   backdrop-filter: blur(5px);
   z-index: var(--z-modal, 500);
   visibility: hidden;
@@ -466,7 +471,11 @@
 }
 
 .quiz-overlay .progress-fill {
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary),
+    var(--color-accent)
+  );
 }
 
 .quiz-overlay .option {
@@ -529,7 +538,11 @@
   width: 208px;
   border-radius: 52px;
   gap: 12px;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary),
+    var(--color-primary)
+  );
   color: #ffffff;
   font-size: 1.05rem;
 }

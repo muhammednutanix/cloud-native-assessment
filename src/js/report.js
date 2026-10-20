@@ -2,7 +2,6 @@ import "../css/variables.scss";
 import "../css/main.scss";
 import "../css/lead-form.scss";
 import "../css/report.scss";
-import "../css/report-paper.scss";
 import html2pdf from "html2pdf.js";
 
 import { calculateScore, getLevel } from "./assessment.js";
@@ -90,10 +89,10 @@ function reportTemplate() {
 
         <p id="riskSummary" class="hero-summary report-summary-copy"></p>
 
-        <section class="report-section report-summary-section">
-        <span class="section-eyebrow">YOUR ANSWERS</span>
-        <p class="section-intro">How you responded across five dimensions.</p>
-        <div id="assessmentBreakdown" class="opportunity-grid"></div>
+        <section class="report-section report-challenges-section">
+          <h2>Top Challenges</h2>
+          <p class="section-intro">Areas with the most room to improve, based on your responses.</p>
+          <div id="topChallenges" class="opportunity-grid"></div>
         </section>
 
         <section class="report-section report-lead-form" id="reportLeadForm" aria-labelledby="leadFormTitle">
@@ -115,18 +114,21 @@ function reportTemplate() {
 
       <div class="report-page-block report-page-actions" id="reportActions" hidden>
         <section class="report-section report-next-steps">
-        <span class="section-eyebrow">RECOMMENDED NEXT STEPS</span>
-        <p class="section-intro">Focused actions to advance your cloud native journey.</p>
-        <div id="nextActions" class="action-grid"></div>
+          <h2>How to Level Up</h2>
+          <div id="nextActions" class="action-grid"></div>
         </section>
 
       </div>
 
       <div class="report-page-block report-page-resources" id="reportResources" hidden>
         <section class="report-section report-resources-section">
-        <span class="section-eyebrow">RECOMMENDED RESOURCES</span>
-        <p class="section-intro">Practical guidance for your next stage of growth.</p>
+        <h2>Recommended Resources</h2>
         <div id="topRisks" class="resource-grid"></div>
+        </section>
+
+        <section class="report-section report-mapped-solutions-section">
+          <h2>Mapped Solutions</h2>
+          <div id="mappedSolutions" class="resource-grid"></div>
         </section>
 
         <section class="report-cta">
@@ -171,62 +173,63 @@ function buildReport(answerIds, mount) {
 function renderReport(report, mount, unlocked, justSubmitted = false) {
   mount.querySelector("#riskLevel").textContent = report.level.title;
   mount.querySelector("#scoreSummary").textContent = `${report.score}/20`;
-  mount.querySelector("#riskSummary").textContent = report.level.summary;
+  mount.querySelector("#riskSummary").textContent = report.level.resultsSummary;
 
   const levelNumber = report.level.subtitle.replace("Level ", "");
-  mount
-    .querySelector(".readiness-strip .score-circle")
-    .style.setProperty("--score-progress", `${(report.score / 20) * 100}%`);
+  const scorePercentage = (report.score / 20) * 100;
+  const scoreCircle = mount.querySelector(".readiness-strip .score-circle");
+  const scoreCircleValue = scoreCircle.querySelector("span");
+  scoreCircle.style.setProperty(
+    "background",
+    `conic-gradient(from -90deg, #087f91 0%, #6246c7 ${scorePercentage}%, #e5eaf0 ${scorePercentage}% 100%)`,
+    "important",
+  );
+  scoreCircleValue.style.setProperty("background", "#ffffff", "important");
+  scoreCircleValue.style.setProperty("color", "#20242b", "important");
   mount.querySelector("#riskUrgency").textContent = `Level ${levelNumber}`;
   mount.querySelector(".readiness-meter span").style.width =
     `${(report.score / 20) * 100}%`;
 
   mount.querySelector("#reportLeadForm").hidden = unlocked && !justSubmitted;
-  mount.querySelector(".report-summary-section").hidden = !unlocked;
+  mount.querySelector(".report-challenges-section").hidden = !unlocked;
   mount.querySelector("#reportActions").hidden = !unlocked;
   mount.querySelector("#reportResources").hidden = !unlocked;
 
   if (unlocked) {
-    renderBreakdown(report, mount);
+    renderChallenges(report, mount);
     renderActions(report, mount);
     renderResources(report, mount);
+    renderMappedSolutions(report, mount);
   }
 }
 
-function renderBreakdown(report, mount) {
-  const container = mount.querySelector("#assessmentBreakdown");
-  container.innerHTML = report.answers
+function renderChallenges(report, mount) {
+  const container = mount.querySelector("#topChallenges");
+  const lowestScoringAnswers = [...report.answers]
+    .sort((answerA, answerB) => answerA.option.score - answerB.option.score)
+    .slice(0, 3);
+
+  container.innerHTML = lowestScoringAnswers
     .map(
-      (answer, index) => `
-        <div class="report-card dimension-card">
-          <span class="card-number">${String(index + 1).padStart(2, "0")}</span>
+      (answer) => `
+        <div class="report-card challenge-card">
+          <span class="answer-label">CURRENT STATE</span>
           <h3>${answer.question.title}</h3>
-          <span class="answer-label">YOUR ANSWER</span>
           <p>${answer.option.label}</p>
         </div>
       `,
     )
     .join("");
-
-  container.insertAdjacentHTML(
-    "beforeend",
-    `<div class="report-card readiness-card">
-      <span class="answer-label">READINESS</span>
-      <strong>Level ${report.level.subtitle.replace("Level ", "")}</strong>
-      <p>${report.level.title}</p>
-    </div>`,
-  );
 }
 
 function renderActions(report, mount) {
   const container = mount.querySelector("#nextActions");
   container.innerHTML = report.level.recommendations
     .map(
-      (item, index) => `<div class="report-card action-card">
+      (item, index) => `<article class="report-card action-card">
         <span class="card-number">${String(index + 1).padStart(2, "0")}</span>
-        <h3>How to Level Up</h3>
         <p>${item}</p>
-      </div>`,
+      </article>`,
     )
     .join("");
 }
@@ -239,28 +242,33 @@ function renderResources(report, mount) {
   }
 
   container.innerHTML = `
-    <div class="report-card report-highlight">
-      <span class="answer-label">NEXT STEP</span>
-      <h3>${report.resources.nextStep.title}</h3>
-      <p>${report.resources.nextStep.description}</p>
-    </div>
-    <div class="report-card">
-      <span class="answer-label">HOW TO LEVEL UP</span>
-      <h3>${report.resources.solution.title}</h3>
-      <p>${report.resources.solution.description}</p>
-    </div>
     ${report.resources.resources
       .map(
         (resource) => `
           <div class="report-card">
             <span class="answer-label">${resource.type}</span>
             <h3>${resource.title}</h3>
-            <a href="${resource.url}" target="_blank">Learn More</a>
+            <a href="${resource.url}" target="_blank">${resource.action}</a>
           </div>
         `,
       )
       .join("")}
   `;
+}
+
+function renderMappedSolutions(report, mount) {
+  const container = mount.querySelector("#mappedSolutions");
+  container.innerHTML = (report.resources?.mappedSolutions || [])
+    .map(
+      (solution) => `
+        <div class="report-card mapped-solution-card">
+          <span class="answer-label">${solution.type}</span>
+          <h3>${solution.title}</h3>
+          <p>${solution.description}</p>
+        </div>
+      `,
+    )
+    .join("");
 }
 
 function renderError(message, mount) {

@@ -144,7 +144,8 @@ export const QUESTIONS = [
     options: [
       {
         id: 1,
-        label: "Slow: New initiatives require major manual architecture and custom tooling",
+        label:
+          "Slow: New initiatives require major manual architecture and custom tooling",
         score: 1,
       },
       {
@@ -159,7 +160,8 @@ export const QUESTIONS = [
       },
       {
         id: 4,
-        label: "Immediate: Self-service capabilities enabled across the organization",
+        label:
+          "Immediate: Self-service capabilities enabled across the organization",
         score: 4,
       },
     ],

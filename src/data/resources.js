@@ -5,8 +5,30 @@
  * ============================================================
  */
 
+const MAPPED_SOLUTIONS = [
+  {
+    type: "PRODUCT",
+    title: "Nutanix Kubernetes Platform",
+    description:
+      "Explore a complete and open enterprise Kubernetes platform that can run anywhere.",
+  },
+  {
+    type: "PRODUCT",
+    title: "Nutanix Data Services",
+    description:
+      "Extend data services to containerized apps and simplify data management.",
+  },
+  {
+    type: "SOLUTION",
+    title: "Nutanix Cloud Native Solution",
+    description:
+      "Run your workloads on a full-stack, enterprise platform for containers and VMs.",
+  },
+];
+
 export const RESOURCES = {
   L1: {
+    mappedSolutions: MAPPED_SOLUTIONS,
     nextStep: {
       title: "Ready to accelerate your journey?",
       description:
@@ -27,23 +49,29 @@ export const RESOURCES = {
     resources: [
       {
         type: "E-Book",
-        title: "From Chaos to Control: A Cloud Native Strategy Guide for IT Leaders.",
-        url: "#",
+        title:
+          "From Chaos to Control: A Cloud Native Strategy Guide for IT Leaders.",
+        action: "Read eBook →",
+        url: "https://www.nutanix.com/go/cloud-native-strategy-guide-for-it-leaders",
       },
       {
         type: "Blog",
-        title: "The High Cost of Free: Why DIY Kubernetes Breaks Down in Production",
-        url: "#",
+        title:
+          "The High Cost of Free: Why DIY Kubernetes Breaks Down in Production",
+        action: "Read Blog →",
+        url: "https://www.nutanix.com/tech-center/blog/the-high-cost-of-free-why-diy-kubernetes-breaks-down-in-production",
       },
       {
         type: "Video",
         title: "Unified VM & Kubernetes Operations with Nutanix",
-        url: "#",
+        action: "Watch Demo →",
+        url: "https://www.nutanix.com/tech-center/blog/unified-vm-k8s-operations",
       },
     ],
   },
 
   L2: {
+    mappedSolutions: MAPPED_SOLUTIONS,
     nextStep: {
       title: "Ready to accelerate your journey?",
       description:
@@ -65,22 +93,27 @@ export const RESOURCES = {
       {
         type: "E-Book",
         title: "What It Takes to Build a Production‑Ready Kubernetes Platform",
-        url: "#",
+        action: "Read eBook →",
+        url: "https://www.nutanix.com/library/ebooks/kubernetes-in-production",
       },
       {
         type: "Blog",
         title: "The Modern App Paradox: Why Your App Containers Are So Heavy",
-        url: "#",
+        action: "Read Blog →",
+        url: "https://www.nutanix.com/tech-center/blog/the-modern-app-paradox-why-your-app-containers-are-so-heavy",
       },
       {
         type: "Video",
-        title: "Consistent Hybrid Multicloud Kubernetes experience for Platform Engineers and Developers",
-        url: "#",
+        title:
+          "Consistent Hybrid Multicloud Kubernetes experience for Platform Engineers and Developers",
+        action: "Watch Video →",
+        url: "https://www.youtube.com/watch?v=VKZtB0WUE2A",
       },
     ],
   },
 
   L3: {
+    mappedSolutions: MAPPED_SOLUTIONS,
     nextStep: {
       title: "Ready to accelerate your journey?",
       description:
@@ -102,22 +135,27 @@ export const RESOURCES = {
       {
         type: "E-Book",
         title: "Cloud Native Playbook for Platform Engineers",
-        url: "#",
+        action: "Read eBook →",
+        url: "https://www.nutanix.com/library/ebooks/cloud-native-playbook-for-platform-engineers",
       },
       {
         type: "Blog",
-        title: "Operationalizing Kubernetes: Why the Future Belongs to Full-Stack Platforms",
-        url: "#",
+        title:
+          "Operationalizing Kubernetes: Why the Future Belongs to Full-Stack Platforms",
+        action: "Read Blog →",
+        url: "https://www.nutanix.com/blog/operationalizing-kubernetes",
       },
       {
         type: "Video",
         title: "Kubernetes Lifecycle Management with NKP and Cluster API",
-        url: "#",
+        action: "Watch Video →",
+        url: "https://www.youtube.com/watch?v=jT6N2c32ETE",
       },
     ],
   },
 
   L4: {
+    mappedSolutions: MAPPED_SOLUTIONS,
     nextStep: {
       title: "Ready to accelerate your journey?",
       description:
@@ -139,17 +177,21 @@ export const RESOURCES = {
       {
         type: "E-Book",
         title: "The Definitive Guide to Enterprise Cloud Native Deployment",
-        url: "#",
+        action: "Read eBook →",
+        url: "https://www.nutanix.com/library/ebooks/definitive-guide-to-cloud-native",
       },
       {
         type: "Blog",
-        title: "Networking and Security for Full Stack NKP Production Grade Containerization",
-        url: "#",
+        title:
+          "Networking and Security for Full Stack NKP Production Grade Containerization",
+        action: "Read Blog →",
+        url: "https://next.nutanix.com/community-blog-154/networking-and-security-for-full-stack-nkp-production-grade-containerization-45228",
       },
       {
         type: "Video",
         title: "What Comes After: Day 2 Kubernetes Done Right",
-        url: "#",
+        action: "Watch Video →",
+        url: "https://www.nutanix.com/viewer/go/what-comes-after-day-2-kubernetes-done-right",
       },
     ],
   },

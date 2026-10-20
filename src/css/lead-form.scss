@@ -267,7 +267,12 @@
   padding: 0.9rem 1.4rem !important;
   border: none !important;
   border-radius: 999px !important;
-  background: linear-gradient(135deg, #1fdde9 0%, #7855fa 52%, #ff7766 100%) !important;
+  background: linear-gradient(
+    135deg,
+    #1fdde9 0%,
+    #7855fa 52%,
+    #ff7766 100%
+  ) !important;
   color: #fff !important;
   font-weight: 700 !important;
   cursor: pointer !important;

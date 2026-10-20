@@ -22,6 +22,9 @@ export const LEVELS = [
     summary:
       "You have established the core foundation for your cloud native journey, but operational fragmentation and manual processes result in significant friction. Managing virtual machines, early Kubernetes clusters, and data services in separate silos can bog down your team with repetitive administrative tasks, slowing overall delivery speed.",
 
+    resultsSummary:
+      "You have established the core foundation for your cloud native journey, but operational fragmentation and manual processes results in significant friction. Managing virtual machines, early Kubernetes clusters, and data services in separate silos bogs down your team with repetitive administrative tasks, slowing overall delivery speed.",
+
     recommendations: [
       "Minimize operational fragmentation by unifying VM and container management under a single, cohesive operating model.",
       "Replace manual, step-by-step provisioning with standardized, automated infrastructure templates.",
@@ -44,6 +47,9 @@ export const LEVELS = [
 
     summary:
       "You are actively scaling cloud native workloads, but managing isolated clusters and varied operating models across different teams or locations is creating operational overhead. Bridging these environments with standardized automation will unlock true multicluster agility without increasing administrative overhead.",
+
+    resultsSummary:
+      "You are actively scaling cloud native workloads, but managing isolated clusters and varied operating models across different teams or locations is creating operational overhead. Bridging these environments with standardized automation will unlock true multi-cluster agility without increasing administrative overhead.",
 
     recommendations: [
       "Transition from partial automation to declarative, fleet-wide cluster management across your enterprise.",
@@ -68,6 +74,9 @@ export const LEVELS = [
     summary:
       "Your organization operates with high consistency, and is now ready to transition from automation to policy-driven scaling and security. By integrating governance directly into your workflows, you can expand rapidly while still adhering to your enterprise standards for compliance and protection.",
 
+    resultsSummary:
+      "Your cloud native operations are mature, featuring robust automation and standardized environments across your enterprise. To reach complete operational alignment, your primary focus is removing remaining friction between developer workflows, complex data lifecycle management, and cross-cluster governance.",
+
     recommendations: [
       "Streamline day-2 operations by implementing automated, zero-downtime upgrades across your entire Kubernetes cluster fleet.",
       "Extend policy-driven data protection, continuous snapshots, and instant disaster recovery to all modern application workloads.",
@@ -89,6 +98,9 @@ export const LEVELS = [
     color: "#22C55E",
 
     summary:
+      "You operate a unified enterprise platform with fleet-level automation and consistency across environments. Your operational foundation is already optimized, so now your goal is to ease scalability across distributed environments, by leveraging intelligent operations to refine complex workflows, increase lifecycle automation, and continuously optimize processes.",
+
+    resultsSummary:
       "You operate a unified enterprise platform with fleet-level automation and consistency across environments. Your operational foundation is already optimized, so now your goal is to ease scalability across distributed environments, by leveraging intelligent operations to refine complex workflows, increase lifecycle automation, and continuously optimize processes.",
 
     recommendations: [

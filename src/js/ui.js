@@ -192,7 +192,9 @@ export function renderQuestion() {
   if (overlayVisible && overlayEl) {
     overlayEl.classList.add("show");
     app.querySelector(".assessment")?.classList.add("quiz-open");
-    app.querySelector(".assessment > .hero")?.setAttribute("aria-hidden", "true");
+    app
+      .querySelector(".assessment > .hero")
+      ?.setAttribute("aria-hidden", "true");
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
   }
@@ -281,8 +283,8 @@ function bindEvents(question) {
       if (state.currentQuestion === QUESTIONS.length - 1) {
         renderProcessingScreen();
         window.setTimeout(() => {
-            window.location.assign(createPreviewReportUrl(state.answers));
-          }, 2200);
+          window.location.assign(createPreviewReportUrl(state.answers));
+        }, 2200);
         return;
       }
 
@@ -372,7 +374,10 @@ function renderProcessingScreen() {
     percentEl.textContent = `${percent}%`;
     progressFill.style.width = `${percent}%`;
     steps.forEach((step) => {
-      step.classList.toggle("is-complete", percent >= Number(step.dataset.step));
+      step.classList.toggle(
+        "is-complete",
+        percent >= Number(step.dataset.step),
+      );
     });
 
     if (progress < 1) requestAnimationFrame(updateProcessingPercent);
