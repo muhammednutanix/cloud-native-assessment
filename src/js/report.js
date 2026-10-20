@@ -50,10 +50,23 @@ export function initReport(
       url.searchParams.set("result", fullResult);
       window.history.replaceState({}, "", url);
       renderReport(report, mount, true, true);
-      mount.querySelector("#reportActions").scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      const scrollToActions = () =>
+        mount.querySelector("#reportActions").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      const reportLayout = mount.querySelector(".report-layout");
+
+      if (mount.classList.contains("report-is-printing")) {
+        const handlePrintComplete = (event) => {
+          if (event.animationName !== "report-paper-rise") return;
+          reportLayout.removeEventListener("animationend", handlePrintComplete);
+          scrollToActions();
+        };
+        reportLayout.addEventListener("animationend", handlePrintComplete);
+      } else {
+        scrollToActions();
+      }
     });
   }
 }
@@ -196,6 +209,17 @@ function renderReport(report, mount, unlocked, justSubmitted = false) {
   mount.querySelector(".report-challenges-section").hidden = !unlocked;
   mount.querySelector("#reportActions").hidden = !unlocked;
   mount.querySelector("#reportResources").hidden = !unlocked;
+
+  const printState = unlocked ? "full" : "preview";
+  if (mount.dataset.printState !== printState) {
+    mount.dataset.printState = printState;
+    mount.classList.remove("report-is-printing");
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      void mount.offsetWidth;
+      mount.classList.add("report-is-printing");
+    }
+  }
 
   if (unlocked) {
     renderChallenges(report, mount);
