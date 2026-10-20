@@ -348,12 +348,12 @@ function renderProcessingScreen() {
           <strong id="processingPercent">0%</strong>
         </div>
         <div class="processing-progress-track">
-          <span></span>
+          <span id="processingProgressFill"></span>
         </div>
         <div class="processing-steps">
-          <span><i></i>Responses scored</span>
-          <span><i></i>Maturity mapped</span>
-          <span><i></i>Resources matched</span>
+          <span data-step="33"><i aria-hidden="true"></i>Responses scored</span>
+          <span data-step="66"><i aria-hidden="true"></i>Maturity mapped</span>
+          <span data-step="100"><i aria-hidden="true"></i>Resources matched</span>
         </div>
         <p class="processing-note">This usually takes less than 10 seconds. Your responses remain private.</p>
       </div>
@@ -361,12 +361,19 @@ function renderProcessingScreen() {
   `;
 
   const percentEl = app.querySelector("#processingPercent");
+  const progressFill = app.querySelector("#processingProgressFill");
+  const steps = [...app.querySelectorAll(".processing-steps [data-step]")];
   const startedAt = performance.now();
   const duration = 2100;
 
   function updateProcessingPercent(now) {
     const progress = Math.min((now - startedAt) / duration, 1);
-    percentEl.textContent = `${Math.round(progress * 100)}%`;
+    const percent = Math.round(progress * 100);
+    percentEl.textContent = `${percent}%`;
+    progressFill.style.width = `${percent}%`;
+    steps.forEach((step) => {
+      step.classList.toggle("is-complete", percent >= Number(step.dataset.step));
+    });
 
     if (progress < 1) requestAnimationFrame(updateProcessingPercent);
   }

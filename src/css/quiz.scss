@@ -644,7 +644,7 @@
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, #ffffff, var(--color-secondary));
-  animation: processingProgress 2.1s ease-out forwards;
+  transition: width 80ms linear;
 }
 
 .processing-steps {
@@ -660,25 +660,49 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  transition:
+    color 220ms ease,
+    opacity 220ms ease;
 }
 
 .processing-steps i {
+  display: grid;
+  place-items: center;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  color: transparent;
+  font-size: 10px;
+  font-style: normal;
+  line-height: 1;
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.processing-steps .is-complete {
+  color: #ffffff;
+}
+
+.processing-steps .is-complete i {
+  content: "";
+  border-color: var(--color-secondary);
+  background: var(--color-secondary);
+  color: #101820;
+  transform: scale(1.08);
+}
+
+.processing-steps .is-complete i::before {
+  content: "✓";
 }
 
 .processing-note {
   margin-top: 28px;
   color: rgba(255, 255, 255, 0.64);
   font-size: 0.72rem;
-}
-
-@keyframes processingProgress {
-  to {
-    width: 100%;
-  }
 }
 
 @keyframes processingPulse {
