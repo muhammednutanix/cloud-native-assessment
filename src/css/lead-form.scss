@@ -125,24 +125,14 @@
 }
 
 .marketo-form-shell {
+  width: 100%;
+  min-width: 0;
   margin-top: 0.2rem;
   border-radius: 14px;
   background: transparent;
   padding: 0;
   border: none;
   overflow: visible;
-}
-
-.marketo-form-shell .mktoForm,
-.marketo-form-shell form,
-.marketo-form-shell .mktoFormRow,
-.marketo-form-shell .mktoFormCol,
-.marketo-form-shell .mktoFieldWrap,
-.marketo-form-shell .mktoField,
-.marketo-form-shell .mktoButtonWrap,
-.marketo-form-shell .mktoButtonRow,
-.marketo-form-shell .mktoButton {
-  all: revert;
 }
 
 .marketo-form-shell * {
@@ -152,22 +142,52 @@
 
 .marketo-form-shell .mktoForm,
 .marketo-form-shell form {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  align-items: start !important;
+  column-gap: 16px !important;
+  row-gap: 12px !important;
   width: 100% !important;
+  min-width: 0 !important;
   max-width: 100% !important;
   background: transparent !important;
   color: #f8fafc !important;
 }
 
 .marketo-form-shell .mktoFormRow {
-  display: grid !important;
-  grid-template-columns: 1fr !important;
-  gap: 8px !important;
-  margin-bottom: 8px !important;
+  display: contents !important;
+}
+
+.marketo-form-shell .mktoClear,
+.marketo-form-shell .mktoOffset,
+.marketo-form-shell .mktoGutter,
+.marketo-form-shell .mktoPlaceholder,
+.marketo-form-shell .mktoInstruction,
+.marketo-form-shell input[type="hidden"],
+.marketo-form-shell form > style {
+  display: none !important;
 }
 
 .marketo-form-shell .mktoFormCol {
   width: 100% !important;
+  min-width: 0 !important;
   float: none !important;
+  margin: 0 !important;
+}
+
+.marketo-form-shell .mktoFormCol:has(.mktoHtmlText) {
+  grid-column: 1 / -1 !important;
+}
+
+.marketo-form-shell .mktoFormCol:has(#FormDisclaimer) .mktoFieldWrap,
+.marketo-form-shell .mktoFormCol:has(#FormDisclaimer) .mktoHtmlText,
+.marketo-form-shell #FormDisclaimer {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.marketo-form-shell #FormDisclaimer {
+  margin: 0 !important;
 }
 
 .marketo-form-shell .mktoFieldWrap {
@@ -178,6 +198,8 @@
 
 .marketo-form-shell .mktoLabel,
 .marketo-form-shell label {
+  display: block !important;
+  width: 100% !important;
   color: #e2e8f0 !important;
   font-size: 0.8rem !important;
   letter-spacing: 0.02em !important;
@@ -190,6 +212,8 @@
 .marketo-form-shell select,
 .marketo-form-shell textarea {
   width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
   min-height: 42px !important;
   border-radius: 10px !important;
   border: 1px solid rgba(148, 163, 184, 0.1) !important;
@@ -218,10 +242,27 @@
   text-align: left !important;
 }
 
+.marketo-form-shell .mktoButtonRow {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  margin: 12px 0 0 !important;
+}
+
+.marketo-form-shell .mktoButtonRow .mktoButtonWrap {
+  display: inline-flex !important;
+  width: auto !important;
+  margin: 0 !important;
+  margin-left: 0 !important;
+}
+
 .marketo-form-shell .mktoButton {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  margin-left: 0 !important;
   min-width: 220px !important;
   padding: 0.9rem 1.4rem !important;
   border: none !important;
@@ -290,6 +331,29 @@
   }
 }
 
+@media (max-width: 640px) {
+  .report-lead-form,
+  .report-lead-form .marketo-form-shell {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .marketo-form-shell .mktoForm,
+  .marketo-form-shell form {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .report-lead-form .marketo-form-shell .mktoButton {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .marketo-form-shell .mktoFormRow {
+    display: contents !important;
+  }
+}
+
 .report-lead-form {
   max-width: 760px;
   margin-inline: auto;
@@ -322,6 +386,50 @@
 .report-lead-form .marketo-form-shell input::placeholder,
 .report-lead-form .marketo-form-shell textarea::placeholder {
   color: #6b7280 !important;
+}
+
+.report-lead-form .marketo-form-shell .mktoButtonRow {
+  grid-column: 1 / -1 !important;
+  justify-content: flex-start !important;
+  margin: 12px 0 0 !important;
+}
+
+.report-lead-form .marketo-form-shell .mktoButtonRow .mktoButtonWrap {
+  width: auto !important;
+  margin: 0 !important;
+  margin-left: 0 !important;
+  transform: none !important;
+}
+
+.report-lead-form .marketo-form-shell .mktoButtonRow .mktoButtonWrap[style] {
+  margin-left: 0 !important;
+}
+
+.report-lead-form .marketo-form-shell .mktoButton {
+  min-width: 240px !important;
+  min-height: 48px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: linear-gradient(100deg, #087f91 0%, #6246c7 100%) !important;
+  color: #ffffff !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 16px rgba(98, 70, 199, 0.2) !important;
+}
+
+#reportLeadForm form#mktoForm_4680.mktoForm .mktoButton {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.report-lead-form .marketo-form-shell .mktoButton:hover,
+.report-lead-form .marketo-form-shell .mktoButton:focus-visible {
+  filter: brightness(1.08) !important;
+  box-shadow: 0 8px 20px rgba(98, 70, 199, 0.28) !important;
 }
 
 .report-lead-form .marketo-loading,

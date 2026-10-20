@@ -81,6 +81,10 @@ export async function initMarketoForm(container = document, onSuccess = () => {}
 
 				const marketoForm = form.getFormElem()[0];
 				marketoForm.classList.add("nutanix-marketo-form");
+				marketoForm.querySelectorAll(".mktoButtonRow .mktoButtonWrap").forEach((wrapper) => {
+					wrapper.style.setProperty("margin-left", "0", "important");
+					wrapper.style.setProperty("transform", "none", "important");
+				});
 				form.vals({ URL__c: window.location.href });
 
 				form.onSuccess(() => {
