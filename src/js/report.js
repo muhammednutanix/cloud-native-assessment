@@ -291,6 +291,7 @@ function renderMappedSolutions(report, mount) {
           <span class="answer-label">${solution.type}</span>
           <h3>${solution.title}</h3>
           <p>${solution.description}</p>
+          <a href="${solution.url}" target="_blank" rel="noopener noreferrer">Explore ${solution.type.toLowerCase()} <span aria-hidden="true">→</span></a>
         </div>
       `,
     )
