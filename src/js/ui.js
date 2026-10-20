@@ -97,7 +97,7 @@ export function renderQuestion() {
         <div class="quiz-container">
 
           <div class="quiz-window-header">
-            <span>Cloud Native Readiness Assessment</span>
+            <span class="quiz-window-title">Cloud Native Readiness Assessment</span>
             <button
               id="closeQuizBtn"
               class="quiz-close-btn"
@@ -108,18 +108,12 @@ export function renderQuestion() {
             </button>
           </div>
 
-          ${renderProgress()}
-
           <div class="question-card">
+            <span class="question-watermark" aria-hidden="true">
+              ${String(state.currentQuestion + 1).padStart(2, "0")}
+            </span>
 
             <div class="question-header">
-
-              <span>
-                Question ${state.currentQuestion + 1}
-                of
-                ${QUESTIONS.length}
-              </span>
-
               <span>
                 ${question.title}
               </span>
@@ -184,6 +178,8 @@ export function renderQuestion() {
 
         </div>
 
+        ${renderProgress()}
+
       </div>
 
     </main>
@@ -195,6 +191,8 @@ export function renderQuestion() {
   const overlayEl = app.querySelector("#quizOverlay");
   if (overlayVisible && overlayEl) {
     overlayEl.classList.add("show");
+    app.querySelector(".assessment")?.classList.add("quiz-open");
+    app.querySelector(".assessment > .hero")?.setAttribute("aria-hidden", "true");
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
   }
@@ -207,9 +205,15 @@ export function renderQuestion() {
 
 function renderProgress() {
   const percent = (state.answers.length / QUESTIONS.length) * 100;
+  const progressState =
+    state.answers.length === 0
+      ? "progress--pending"
+      : state.answers.length === 1
+        ? "progress--entering"
+        : "";
 
   return `
-      <div class="progress">
+      <div class="progress ${progressState}">
 
           <div
               class="progress-bar">
@@ -303,11 +307,14 @@ function bindEvents(question) {
   const overlay = app.querySelector("#quizOverlay");
   const startBtn = app.querySelector("#startAssessmentBtn");
   const closeBtn = app.querySelector("#closeQuizBtn");
+  const hero = app.querySelector(".assessment > .hero");
 
   if (startBtn && overlay) {
     startBtn.addEventListener("click", () => {
       overlayVisible = true;
       overlay.classList.add("show");
+      app.querySelector(".assessment")?.classList.add("quiz-open");
+      hero?.setAttribute("aria-hidden", "true");
       // Prevent background scrolling while overlay is open
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
@@ -318,6 +325,8 @@ function bindEvents(question) {
     closeBtn.addEventListener("click", () => {
       overlayVisible = false;
       overlay.classList.remove("show");
+      app.querySelector(".assessment")?.classList.remove("quiz-open");
+      hero?.removeAttribute("aria-hidden");
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     });
