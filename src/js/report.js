@@ -7,7 +7,10 @@ import html2pdf from "html2pdf.js";
 import { calculateScore, getLevel } from "./assessment.js";
 import { QUESTIONS } from "../data/questions.js";
 import { RESOURCES } from "../data/resources.js";
-import { decodeResult } from "./encoder.js";
+import {
+  decodeResult,
+  encodeResult,
+} from "./encoder.js";
 import { initMarketoForm } from "./marketo.js";
 import nutanixLogo from "../assets/nutanix-logo.svg?raw";
 
@@ -15,6 +18,8 @@ export function initReport(
   mount = document.querySelector("[data-cna-report]"),
 ) {
   if (!mount) return;
+
+  document.addEventListener("keydown", preventPrintShortcut, true);
 
   mount.innerHTML = reportTemplate();
 
@@ -39,7 +44,11 @@ export function initReport(
   const report = buildReport(decoded.answers, mount);
   if (!report) return;
 
-  const fullResult = `CNA1-${decoded.answers.join("")}`;
+  const fullResult = encodeResult(
+    decoded.answers,
+    decoded.dateStamp,
+    decoded.analyticsHash,
+  );
   const unlocked = !decoded.preview;
 
   renderReport(report, mount, unlocked);
@@ -48,25 +57,7 @@ export function initReport(
     initMarketoForm(mount, () => {
       const url = new URL(window.location.href);
       url.searchParams.set("result", fullResult);
-      window.history.replaceState({}, "", url);
-      renderReport(report, mount, true, true);
-      const scrollToActions = () =>
-        mount.querySelector("#reportActions").scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      const reportLayout = mount.querySelector(".report-layout");
-
-      if (mount.classList.contains("report-is-printing")) {
-        const handlePrintComplete = (event) => {
-          if (event.animationName !== "report-paper-rise") return;
-          reportLayout.removeEventListener("animationend", handlePrintComplete);
-          scrollToActions();
-        };
-        reportLayout.addEventListener("animationend", handlePrintComplete);
-      } else {
-        scrollToActions();
-      }
+      window.location.assign(url);
     });
   }
 }
@@ -321,6 +312,13 @@ function renderError(message, mount) {
 }
 
 let pdfExportInProgress = false;
+
+function preventPrintShortcut(event) {
+  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "p") {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+}
 
 async function downloadPdf() {
   const element = document.querySelector("[data-cna-report]");

@@ -2568,3 +2568,9 @@
   to { opacity: 0; }
 }
 
+@media print {
+  body:has([data-cna-report]) {
+    display: none !important;
+  }
+}
+

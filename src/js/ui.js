@@ -281,9 +281,10 @@ function bindEvents(question) {
 
     window.setTimeout(() => {
       if (state.currentQuestion === QUESTIONS.length - 1) {
+        const previewUrl = createPreviewReportUrl(state.answers.slice());
         renderProcessingScreen();
         window.setTimeout(() => {
-          window.location.assign(createPreviewReportUrl(state.answers));
+          window.location.assign(previewUrl);
         }, 2200);
         return;
       }
